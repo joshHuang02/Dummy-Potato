@@ -16,28 +16,32 @@
 </head>
 
 <body onLoad="send()">
-    {
-    "one": "the first",
-    "two": "the second"
-    }
-    no
-    <p></p>
+    <p id="test"></p>
     <script type="text/javascript">
     var json = {
         "one": "the first",
         "two": "the second"
     }
 
+    var data = "a thing"
+
     function send() {
+        $.ajax({
+            type: "POST",
+            url: "/receiver",
+            data: {
+                "one": "the first",
+                "two": "the second"
+            },
+            success: function(data, status) {
+                $("#test").html(data);
+                alert('success');
+            },
+
+        });
+        console.log(json);
         console.log("send");
-        $.post('/receiver', // url
-            {
-                name: "Donald Duck",
-                city: "Duckburg"
-            }, // data to be submit
-            function(data, status, jqXHR) { // success callback
-                $('p').append('status: ' + status + ', data: ' + data);
-            });
+
 
 
     }

@@ -1,6 +1,6 @@
 # app.py
 import sys
-from flask import Flask, request, render_template, redirect, Response
+from flask import Flask, request, render_template, redirect, Response, jsonify
 import random, json
 
 app = Flask(__name__)
@@ -12,12 +12,13 @@ def output():
 
 @app.route('/receiver', methods = ['POST'])
 def worker():
-	# read json + reply
-	data = request.get_json()
-	return "data"
-	print(data)
-	#with open('data.json', 'w') as outfile:
-		#json.dump(result, outfile)
+	num_list = [1,2,3,4,5]
+	num_dict = {'numbers' : num_list, 'name' : 'Numbers'}
+	try:
+		data = request.get_json()
+		return data
+	except:
+		return 'failed'
 
 if __name__ == "__main__":
     app.run(debug = True)
