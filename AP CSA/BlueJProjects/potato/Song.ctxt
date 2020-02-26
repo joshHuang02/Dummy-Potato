@@ -1,0 +1,19 @@
+#BlueJ class context
+comment0.target=Song
+comment0.text=\r\n\ Song\ objects\ containing\ rating,\ title,\ and\ length\r\n\r\n\ @author\ Josh\ Huang\r\n\ @version\ 8/28/2019\r\n
+comment1.params=
+comment1.target=Song()
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ Song\ defining\ rating,\ title,\ and\ length\r\n\ \r\n
+comment2.params=rating
+comment2.target=void\ setRating(int)
+comment3.params=title
+comment3.target=void\ setTitle(java.lang.String)
+comment4.params=lengthMin
+comment4.target=void\ setLengthMin(double)
+comment5.params=
+comment5.target=int\ getRating()
+comment6.params=
+comment6.target=java.lang.String\ getTitle()
+comment7.params=
+comment7.target=double\ getLengthMin()
+numComments=8

@@ -1,0 +1,21 @@
+#BlueJ class context
+comment0.target=Leg
+comment1.params=length
+comment1.target=Leg(int)
+comment2.params=length\ isUsable
+comment2.target=Leg(int,\ boolean)
+comment3.params=length
+comment3.target=void\ setLength(int)
+comment4.params=
+comment4.target=int\ getLength()
+comment5.params=isUsable
+comment5.target=void\ setIsUsable(boolean)
+comment6.params=
+comment6.target=boolean\ getIsUsable()
+comment7.params=
+comment7.target=java.lang.String\ injure()
+comment8.params=
+comment8.target=java.lang.String\ heal()
+comment9.params=
+comment9.target=java.lang.String\ kick()
+numComments=10

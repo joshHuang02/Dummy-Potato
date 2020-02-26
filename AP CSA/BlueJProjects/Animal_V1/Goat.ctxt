@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=Goat
+comment1.params=age\ isAlive
+comment1.target=Goat(int,\ boolean)
+comment2.params=
+comment2.target=java.lang.String\ chowSomeGrass()
+comment3.params=
+comment3.target=java.lang.String\ revive()
+comment4.params=
+comment4.target=java.lang.String\ dash()
+comment5.params=
+comment5.target=java.lang.String\ listenUp()
+numComments=6

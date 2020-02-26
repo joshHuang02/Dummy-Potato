@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.target=Annelids
+comment1.params=name\ currentAgeInYears\ ageInyears\ isAlive\ weightOfBrain\ colorOfHeart\ mouthSizeInInches\ sizeOfTailInCM
+comment1.target=Annelids(java.lang.String,\ int,\ double,\ boolean,\ double,\ java.lang.String,\ double,\ int)
+comment2.params=name\ currentAgeInYears\ ageInyears\ weightOfBrain\ colorOfHeart\ mouthSizeInInches\ sizeOfTailInCM
+comment2.target=Annelids(java.lang.String,\ int,\ double,\ double,\ java.lang.String,\ double,\ int)
+comment3.params=name\ currentAgeInYears\ isAlive\ weightOfBrain\ colorOfHeart
+comment3.target=Annelids(java.lang.String,\ int,\ boolean,\ double,\ java.lang.String)
+comment4.params=
+comment4.target=java.lang.String\ toString()
+comment5.params=
+comment5.target=Mouth\ getMouth()
+comment6.params=
+comment6.target=Heart\ getHeart()
+comment7.params=
+comment7.target=Tail\ getTail()
+numComments=8

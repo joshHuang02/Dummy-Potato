@@ -1,0 +1,22 @@
+#BlueJ class context
+comment0.target=Dog
+comment0.text=\r\n\ This\ class\ will\ define\ the\ dog's\ size,\ age,\ and\ number\ of\ legs\r\n\ @author\ Josh\ Huang\r\n\ @version\ 0.1.0\ beta\ \r\n
+comment1.params=
+comment1.target=Dog()
+comment1.text=\r\n\ This\ constructor\ defines\ the\ default\ value\ for\ size\ and\ age\r\n
+comment2.params=ageInYears\ currentSize
+comment2.target=Dog(int,\ double)
+comment2.text=\r\n\ This\ constructor\ allow\ you\ to\ set\ up\ variables\ from\ what\ you\ pass\ in\r\n\ @param\ ageInYears\ Accepts\ an\ int\ for\ age\ in\ years\ of\ the\ dog\r\n\ @param\ currentSize\ Accepts\ a\ double\ to\ set\ sizeInPounds\ of\ dog\r\n
+comment3.params=ageInYears
+comment3.target=Dog(int)
+comment3.text=\r\n\ This\ constructor\ only\ sets\ the\ age\ and\ puts\ size\ as\ 0.1\ default\r\n\ @param\ ageInYears\ Accepts\ an\ int\ for\ age\ in\ years\r\n
+comment4.params=ageInYears
+comment4.target=void\ setAgeInYears(int)
+comment4.text=\r\n\ This\ constructor\ defines\ the\ numbers\ for\ the\ variables\r\n\ @param\ setAAccepts\ an\ int\ to\ replace\ age\ in\ years\ \r\n
+comment5.params=
+comment5.target=int\ getAgeInYear()
+comment6.params=sizeInPounds
+comment6.target=void\ setSizeInPounds(double)
+comment7.params=
+comment7.target=double\ getSizeInPounds()
+numComments=8

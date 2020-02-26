@@ -1,0 +1,21 @@
+#BlueJ class context
+comment0.target=Jellyfish
+comment0.text=\r\n\ Jellyfish\ can\ eat,\ spit,\ be\ afraid,\ and\ hunt\r\n\r\n\ @author\ Josh\ Huang\ \ \r\n\ @version\ 1/8/2020\r\n
+comment1.params=
+comment1.target=Jellyfish()
+comment2.params=
+comment2.target=java.lang.String\ eatWithTentacles()
+comment2.text=\r\n\ Jellyfish\ will\ attempt\ to\ eat\ using\ mouth\ and\ tentacle\r\n\r\n\ \r\n\ @return\ a\ String\ describing\ if\ the\ jellyfish\ ate\ or\ not\r\n
+comment3.params=
+comment3.target=java.lang.String\ spit()
+comment3.text=\r\n\ Jellyfish\ will\ attempt\ to\ spit\ using\ mouth\ and\ tentacle\r\n\r\n\ \r\n\ @return\ \ \ \ String\ describing\ if\ the\ Jellyfish\ was\ able\ to\ spit\r\n
+comment4.params=
+comment4.target=java.lang.String\ fear()
+comment4.text=\r\n\ Jellyfish\ displays\ fear\ by\ curing\ its\ tentacles\r\n\r\n\ @return\ each\ tentacle\ curling\r\n
+comment5.params=
+comment5.target=java.lang.String\ hunt()
+comment5.text=\r\n\ Jellyfish\ attempts\ to\ hunt\ with\ tentacles\ and\ then\ eat\r\n\r\n\ @return\ whether\ or\ not\ the\ Jellyfish\ can\ eat\ and\ if\ each\ tentacle\ attacked\r\n
+comment6.params=
+comment6.target=java.lang.String\ heal()
+comment6.text=\r\n\ heal\ the\ Jellyfish\r\n\r\n\ @return\ String\ confirming\ if\ Jellyfish\ has\ been\ healed\r\n
+numComments=7

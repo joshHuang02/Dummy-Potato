@@ -1,0 +1,14 @@
+#BlueJ class context
+comment0.target=Hippo
+comment1.params=isAlive
+comment1.target=void\ Hippo(boolean)
+comment1.text=\r\n\ Hippo\ constructor\ takes\ the\ boolean\ data\ type\ isAlive\ as\ a\ parameter\r\n
+comment2.params=
+comment2.target=java.lang.String\ chomp()
+comment3.params=
+comment3.target=java.lang.String\ swim()
+comment4.params=
+comment4.target=java.lang.String\ sneeze()
+comment5.params=
+comment5.target=java.lang.String\ visitDoc()
+numComments=6

@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=FruitFly
+comment1.params=name\ ageInMonths\ crimesCommitted\ isAlive
+comment1.target=FruitFly(java.lang.String,\ int,\ int,\ boolean)
+comment2.params=
+comment2.target=java.lang.String\ healSelf()
+comment3.params=
+comment3.target=java.lang.String\ checkSurroundings()
+comment4.params=
+comment4.target=java.lang.String\ searchForFood()
+comment5.params=
+comment5.target=java.lang.String\ liquidateAndConsumeAVictim()
+numComments=6

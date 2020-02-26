@@ -1,0 +1,14 @@
+#BlueJ class context
+comment0.target=Pig
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Pig\ here.\r\n\r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=age\ name
+comment1.target=Pig(int,\ java.lang.String)
+comment2.params=age\ name\ isAlive
+comment2.target=Pig(int,\ java.lang.String,\ boolean)
+comment3.params=
+comment3.target=java.lang.String\ blink()
+comment4.params=
+comment4.target=void\ toTheHospital()
+comment5.params=
+comment5.target=java.lang.String\ run()
+numComments=6

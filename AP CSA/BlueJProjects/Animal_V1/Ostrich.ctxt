@@ -1,0 +1,14 @@
+#BlueJ class context
+comment0.target=Ostrich
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Ostrich\ here.\r\n\r\n\ @author\ (Lauren\ Lee)\r\n\ @version\ (1/8/2020)\r\n
+comment1.params=name
+comment1.target=Ostrich(java.lang.String)
+comment2.params=
+comment2.target=java.lang.String\ run()
+comment3.params=
+comment3.target=java.lang.String\ hear()
+comment4.params=
+comment4.target=java.lang.String\ feed()
+comment5.params=
+comment5.target=java.lang.String\ heal()
+numComments=6

@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.target=Gorilla
+comment1.params=name\ age\ heightInFeet
+comment1.target=Gorilla(java.lang.String,\ int,\ double)
+comment2.params=
+comment2.target=Gorilla()
+comment3.params=
+comment3.target=java.lang.String\ die()
+comment4.params=
+comment4.target=java.lang.String\ heal()
+comment5.params=
+comment5.target=java.lang.String\ blink()
+comment6.params=fatal\ leg
+comment6.target=java.lang.String\ stubToe(boolean,\ java.lang.String)
+comment7.params=
+comment7.target=java.lang.String\ feast()
+numComments=8

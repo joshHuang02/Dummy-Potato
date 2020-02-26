@@ -1,0 +1,22 @@
+#BlueJ class context
+comment0.target=Ear
+comment0.text=\r\n\ This\ animal\ has-a\ ear.\r\n\r\n\ @Cecilia\ Li\r\n\ @1/6/2020\r\n
+comment1.params=size\ isUsable
+comment1.target=Ear(java.lang.String,\ boolean)
+comment2.params=size
+comment2.target=Ear(java.lang.String)
+comment3.params=
+comment3.target=java.lang.String\ listenToMusic()
+comment4.params=
+comment4.target=java.lang.String\ injure()
+comment5.params=
+comment5.target=java.lang.String\ heal()
+comment6.params=size
+comment6.target=void\ setSize(java.lang.String)
+comment7.params=
+comment7.target=java.lang.String\ getSize()
+comment8.params=isUsable
+comment8.target=void\ setIsUsable(boolean)
+comment9.params=
+comment9.target=boolean\ getIsUsable()
+numComments=10

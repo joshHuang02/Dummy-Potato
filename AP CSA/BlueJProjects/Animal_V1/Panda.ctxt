@@ -1,0 +1,19 @@
+#BlueJ class context
+comment0.target=Panda
+comment1.params=isAlive\ earSize\ eyeColor\ brainWeight\ heartColor\ legLength\ mouthSize\ noseSensitivity\ tailLength\ armLength
+comment1.target=Panda(boolean,\ java.lang.String,\ java.lang.String,\ double,\ java.lang.String,\ int,\ double,\ int,\ int,\ double)
+comment2.params=isAlive
+comment2.target=Panda(boolean)
+comment3.params=
+comment3.target=java.lang.String\ findBamboo()
+comment4.params=
+comment4.target=java.lang.String\ throwATantrum()
+comment5.params=
+comment5.target=java.lang.String\ visitorMusicAndEatTheirFood()
+comment6.params=
+comment6.target=java.lang.String\ danceWhileEating()
+comment7.params=
+comment7.target=java.lang.String\ healThePanda()
+comment8.params=
+comment8.target=void\ setAllFunctionsFalse()
+numComments=9

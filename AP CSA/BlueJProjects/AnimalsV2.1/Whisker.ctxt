@@ -1,0 +1,20 @@
+#BlueJ class context
+comment0.target=Whisker
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Whiskers\ here.\r\n\r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=lengthlengthInCm\ isWorking
+comment1.target=Whisker(int,\ boolean)
+comment2.params=
+comment2.target=java.lang.String\ pull()
+comment3.params=
+comment3.target=java.lang.String\ injure()
+comment4.params=
+comment4.target=java.lang.String\ heal()
+comment5.params=
+comment5.target=java.lang.String\ toString()
+comment6.params=
+comment6.target=java.lang.String\ action1()
+comment7.params=lengthInCm
+comment7.target=void\ setLengthInCm(int)
+comment8.params=
+comment8.target=int\ getLengthInCm()
+numComments=9

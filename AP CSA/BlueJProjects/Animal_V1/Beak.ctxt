@@ -1,0 +1,22 @@
+#BlueJ class context
+comment0.target=Beak
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Beak\ here.\r\n\r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=length\ ifWorks
+comment1.target=Beak(double,\ boolean)
+comment2.params=length
+comment2.target=Beak(double)
+comment3.params=
+comment3.target=java.lang.String\ peck()
+comment4.params=
+comment4.target=java.lang.String\ injure()
+comment5.params=
+comment5.target=java.lang.String\ heal()
+comment6.params=length
+comment6.target=void\ setLength(double)
+comment7.params=
+comment7.target=double\ getLength()
+comment8.params=ifWorks
+comment8.target=void\ setIfWorks(boolean)
+comment9.params=
+comment9.target=boolean\ getIfWorks()
+numComments=10

@@ -1,0 +1,22 @@
+#BlueJ class context
+comment0.target=Leg
+comment0.text=\r\n\ Used\ to\ create\ obejcts\ of\ Leg\r\n\ \r\n\ @author\ Chris\ Gaw\ and\ Lauren\ Lee\r\n\ @version\ 1/14/2020\r\n
+comment1.params=name\ lengthInInches
+comment1.target=Leg(java.lang.String,\ int)
+comment2.params=name\ lengthInInches\ isWorking
+comment2.target=Leg(java.lang.String,\ int,\ boolean)
+comment3.params=lengthInInches
+comment3.target=void\ setlengthInInches(int)
+comment4.params=
+comment4.target=int\ getlengthInInches()
+comment5.params=
+comment5.target=java.lang.String\ injure()
+comment6.params=
+comment6.target=java.lang.String\ heal()
+comment7.params=
+comment7.target=java.lang.String\ step()
+comment8.params=
+comment8.target=java.lang.String\ action1()
+comment9.params=
+comment9.target=java.lang.String\ toString()
+numComments=10

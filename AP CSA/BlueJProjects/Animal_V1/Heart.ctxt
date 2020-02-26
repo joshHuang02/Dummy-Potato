@@ -1,0 +1,19 @@
+#BlueJ class context
+comment0.target=Heart
+comment1.params=color\ isWorking
+comment1.target=Heart(java.lang.String,\ boolean)
+comment2.params=
+comment2.target=java.lang.String\ beat()
+comment3.params=
+comment3.target=java.lang.String\ heartAttack()
+comment4.params=
+comment4.target=java.lang.String\ heal()
+comment5.params=color
+comment5.target=void\ setColor(java.lang.String)
+comment6.params=
+comment6.target=java.lang.String\ getColor()
+comment7.params=isWorking
+comment7.target=void\ setIsWorking(boolean)
+comment8.params=
+comment8.target=boolean\ getIsWorking()
+numComments=9

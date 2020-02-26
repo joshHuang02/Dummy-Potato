@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=Deer
+comment1.params=
+comment1.target=Deer()
+comment2.params=
+comment2.target=java.lang.String\ run()
+comment3.params=
+comment3.target=java.lang.String\ eat()
+comment4.params=
+comment4.target=java.lang.String\ attack()
+comment5.params=
+comment5.target=java.lang.String\ heal()
+numComments=6

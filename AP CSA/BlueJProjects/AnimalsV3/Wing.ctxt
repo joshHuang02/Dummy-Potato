@@ -1,0 +1,15 @@
+#BlueJ class context
+comment0.target=Wing
+comment1.params=name\ isWorking\ color
+comment1.target=Wing(java.lang.String,\ boolean,\ java.lang.String)
+comment2.params=
+comment2.target=java.lang.String\ action1()
+comment3.params=
+comment3.target=java.lang.String\ flap()
+comment4.params=
+comment4.target=java.lang.String\ injure()
+comment5.params=
+comment5.target=java.lang.String\ heal()
+comment6.params=
+comment6.target=java.lang.String\ toString()
+numComments=7

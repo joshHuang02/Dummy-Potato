@@ -1,0 +1,23 @@
+#BlueJ class context
+comment0.target=Whale
+comment1.params=name\ isAlive
+comment1.target=Whale(java.lang.String,\ boolean)
+comment10.params=
+comment10.target=boolean\ getIsAlive()
+comment2.params=name
+comment2.target=Whale(java.lang.String)
+comment3.params=
+comment3.target=java.lang.String\ flee()
+comment4.params=
+comment4.target=java.lang.String\ enjoyLife()
+comment5.params=
+comment5.target=java.lang.String\ snack()
+comment6.params=
+comment6.target=java.lang.String\ fullRestore()
+comment7.params=name
+comment7.target=void\ setName(java.lang.String)
+comment8.params=
+comment8.target=java.lang.String\ getName()
+comment9.params=isAlive
+comment9.target=void\ setIsAlive(boolean)
+numComments=11

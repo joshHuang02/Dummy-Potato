@@ -1,0 +1,23 @@
+#BlueJ class context
+comment0.target=Mammal
+comment1.params=name\ currentAge\ isAlive\ weightOfBrain\ rightEyeColor\ leftEyeColor\ nameOfNose\ noseIsWorking\ noseSensitivity\ leftEarSize\ rightEarSize\ mouthSizeInInches\ colorOfHeart\ nameOfRightEye\ nameOfLeftEye\ nameOfLeftEar\ nameOfRightEar\ nameOfMouth\ leftEyeIsWorking\ rightEyeIsWorking\ leftEarIsWorking\ rightEarIsWorking\ mouthIsWorking\ heartIsWorking
+comment1.target=Mammal(java.lang.String,\ double,\ boolean,\ double,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ boolean,\ int,\ java.lang.String,\ java.lang.String,\ double,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ boolean,\ boolean,\ boolean,\ boolean,\ boolean,\ boolean)
+comment10.params=
+comment10.target=Ear\ getRightEar()
+comment2.params=name\ currentAge\ weightOfBrain\ rightEyeColor\ leftEyeColor\ noseSensitivity\ leftEarSize\ rightEarSize\ mouthSizeInInches\ colorOfHeart\ nameOfRightEye\ nameOfLeftEye\ nameOfLeftEar\ nameOfRightEar\ nameOfMouth
+comment2.target=Mammal(java.lang.String,\ double,\ double,\ java.lang.String,\ java.lang.String,\ int,\ java.lang.String,\ java.lang.String,\ double,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String)
+comment3.params=
+comment3.target=java.lang.String\ toString()
+comment4.params=
+comment4.target=Heart\ getHeart()
+comment5.params=
+comment5.target=Nose\ getNose()
+comment6.params=
+comment6.target=Mouth\ getMouth()
+comment7.params=
+comment7.target=Eye\ getLeftEye()
+comment8.params=
+comment8.target=Eye\ getRightEye()
+comment9.params=
+comment9.target=Ear\ getLeftEar()
+numComments=11

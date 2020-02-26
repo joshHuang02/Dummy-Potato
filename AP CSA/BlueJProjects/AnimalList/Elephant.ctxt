@@ -1,0 +1,36 @@
+#BlueJ class context
+comment0.target=Elephant
+comment1.params=name\ currentAge\ isAlive\ weightOfBrain\ rightEyeColor\ leftEyeColor\ nameOfNose\ noseIsWorking\ noseSensitivity\ leftEarSize\ rightEarSize\ mouthSizeInInches\ colorOfHeart\ nameOfRightEye\ nameOfLeftEye\ nameOfLeftEar\ nameOfRightEar\ nameOfMouth\ leftEyeIsWorking\ rightEyeIsWorking\ leftEarIsWorking\ rightEarIsWorking\ mouthIsWorking\ heartIsWorking\ nameOfLeg1\ nameOfLeg2\ nameOfLeg3\ nameOfLeg4\ legLength\ tailLengthInCm\ trunkColor\ legIsWorking\ tailIsWorking\ trunkIsWorking\ nameOfTail
+comment1.target=Elephant(java.lang.String,\ double,\ boolean,\ double,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ boolean,\ int,\ java.lang.String,\ java.lang.String,\ double,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ boolean,\ boolean,\ boolean,\ boolean,\ boolean,\ boolean,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ int,\ int,\ java.lang.String,\ boolean,\ boolean,\ boolean,\ java.lang.String)
+comment1.text=public\ Elephant(){\r\n\ \ \ \ \ \ \ \ nose\ \=\ new\ Nose(false,4);\r\n\ \ \ \ \ \ \ \ tail\ \=\ new\ Tail(100,true);\r\n\ \ \ \ \ \ \ \ leg1\ \=\ new\ Leg(100,\ true);\r\n\ \ \ \ \ \ \ \ leg2\ \=\ new\ Leg(100,\ true);\r\n\ \ \ \ \ \ \ \ leg3\ \=\ new\ Leg(100,\ true);\r\n\ \ \ \ \ \ \ \ leg4\ \=\ new\ Leg(100,\ true);\r\n\ \ \ \ \ \ \ \ ear1\ \=\ new\ Ear("Large",\ true);\r\n\ \ \ \ \ \ \ \ ear2\ \=\ new\ Ear("Large",\ true);\r\n\ \ \ \ \ \ \ \ eye1\ \=\ new\ Eye("brown",true);\r\n\ \ \ \ \ \ \ \ eye2\ \=\ new\ Eye("brown",true);\r\n\ \ \ \ \ \ \ \ mouth\ \=\ new\ Mouth(36,true);\r\n\ \ \ \ \ \ \ \ trunk\ \=\ new\ Trunk("grey",\ true);\r\n\ \ \ \ \ \ \ \ heart\ \=\ new\ Heart("red",\ true);\r\n\ \ \ \ \ \ \ \ brain\ \=\ new\ Brain(20,\ true);\r\n}
+comment10.params=
+comment10.target=Leg\ getLeg2()
+comment11.params=
+comment11.target=Leg\ getLeg3()
+comment12.params=
+comment12.target=Leg\ getLeg4()
+comment13.params=
+comment13.target=java.lang.String\ weakAction()
+comment14.params=
+comment14.target=java.lang.String\ normalAction()
+comment15.params=
+comment15.target=java.lang.String\ strongAction()
+comment16.params=
+comment16.target=java.lang.String\ heal()
+comment2.params=name\ currentAge\ weightOfBrain\ rightEyeColor\ leftEyeColor\ nameOfNose\ noseSensitivity\ leftEarSize\ rightEarSize\ mouthSizeInInches\ colorOfHeart\ nameOfRightEye\ nameOfLeftEye\ nameOfLeftEar\ nameOfRightEar\ nameOfMouth\ nameOfLeg\ legLength\ tailLengthInCm\ trunkColor\ nameOfLeg1\ nameOfLeg2\ nameOfLeg3\ nameOfLeg4\ nameOfTail
+comment2.target=Elephant(java.lang.String,\ double,\ double,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ int,\ java.lang.String,\ java.lang.String,\ double,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ int,\ int,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String)
+comment3.params=
+comment3.target=java.lang.String\ attack()
+comment4.params=
+comment4.target=java.lang.String\ guard()
+comment5.params=
+comment5.target=java.lang.String\ eat()
+comment6.params=
+comment6.target=java.lang.String\ toString()
+comment7.params=
+comment7.target=Trunk\ getTrunk()
+comment8.params=
+comment8.target=Tail\ getTail()
+comment9.params=
+comment9.target=Leg\ getLeg1()
+numComments=17

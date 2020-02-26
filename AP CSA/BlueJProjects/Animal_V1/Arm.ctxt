@@ -1,0 +1,21 @@
+#BlueJ class context
+comment0.target=Arm
+comment1.params=armLength\ isWaveable
+comment1.target=Arm(double,\ boolean)
+comment2.params=armLength
+comment2.target=Arm(double)
+comment3.params=
+comment3.target=java.lang.String\ wave()
+comment4.params=
+comment4.target=java.lang.String\ injure()
+comment5.params=
+comment5.target=java.lang.String\ heal()
+comment6.params=length
+comment6.target=void\ setArmLength(double)
+comment7.params=
+comment7.target=double\ getArmLength()
+comment8.params=isWaveable
+comment8.target=void\ setIsWaveable(boolean)
+comment9.params=
+comment9.target=boolean\ getIsWaveable()
+numComments=10

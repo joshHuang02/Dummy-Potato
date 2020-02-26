@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.target=Jellyfish
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Jellyfish\ here.\r\n\r\n\ @author\ Josh\ Huang\ \ \r\n\ @version\ 1/8/2020\r\n
+comment1.params=
+comment1.target=Jellyfish()
+comment2.params=
+comment2.target=java.lang.String\ eatWithTentacles()
+comment3.params=
+comment3.target=java.lang.String\ spit()
+comment4.params=
+comment4.target=java.lang.String\ fear()
+comment5.params=
+comment5.target=java.lang.String\ hunt()
+comment6.params=
+comment6.target=java.lang.String\ heal()
+numComments=7

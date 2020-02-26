@@ -1,0 +1,15 @@
+#BlueJ class context
+comment0.target=Shark
+comment1.params=name\ age
+comment1.target=Shark(java.lang.String,\ int)
+comment2.params=name\ age\ isAlive
+comment2.target=Shark(java.lang.String,\ int,\ boolean)
+comment3.params=
+comment3.target=java.lang.String\ swim()
+comment4.params=
+comment4.target=java.lang.String\ blink()
+comment5.params=
+comment5.target=java.lang.String\ feast()
+comment6.params=
+comment6.target=java.lang.String\ regenerate()
+numComments=7

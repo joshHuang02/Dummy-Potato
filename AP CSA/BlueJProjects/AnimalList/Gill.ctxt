@@ -1,0 +1,19 @@
+#BlueJ class context
+comment0.target=Gill
+comment1.params=name\ lengthInCm\ isWorking
+comment1.target=Gill(java.lang.String,\ int,\ boolean)
+comment2.params=
+comment2.target=java.lang.String\ toString()
+comment3.params=
+comment3.target=java.lang.String\ action1()
+comment4.params=
+comment4.target=java.lang.String\ breathe()
+comment5.params=
+comment5.target=java.lang.String\ injure()
+comment6.params=
+comment6.target=java.lang.String\ heal()
+comment7.params=lengthInCm
+comment7.target=void\ setLengthInCm(int)
+comment8.params=
+comment8.target=int\ getLengthInCm()
+numComments=9

@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.target=Wolf
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Wolf\ here.\r\n\r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=
+comment1.target=void\ main()
+comment2.params=functioning
+comment2.target=Wolf(boolean)
+comment3.params=
+comment3.target=java.lang.String\ heal()
+comment4.params=
+comment4.target=java.lang.String\ run()
+comment5.params=
+comment5.target=java.lang.String\ sense()
+comment6.params=
+comment6.target=java.lang.String\ haveDinner()
+numComments=7

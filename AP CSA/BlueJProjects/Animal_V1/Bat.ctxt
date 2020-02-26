@@ -1,0 +1,12 @@
+#BlueJ class context
+comment0.target=Bat
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Bat\ here.\r\n\r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=isAlive
+comment1.target=Bat(boolean)
+comment2.params=
+comment2.target=java.lang.String\ fly()
+comment3.params=
+comment3.target=java.lang.String\ findFood()
+comment4.params=
+comment4.target=java.lang.String\ heal()
+numComments=5

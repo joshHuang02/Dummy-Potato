@@ -1,0 +1,20 @@
+#BlueJ class context
+comment0.target=Nose
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Nose\ here.\r\n\r\n\ @author\ Josh\ Huang\r\n\ @version\ 1/6/2020\r\n
+comment1.params=sensitivity
+comment1.target=Nose(int)
+comment2.params=name\ sensitivity
+comment2.target=Nose(java.lang.String,\ int)
+comment3.params=name\ isWorking\ sensitivity
+comment3.target=Nose(java.lang.String,\ boolean,\ int)
+comment4.params=
+comment4.target=java.lang.String\ action1()
+comment5.params=
+comment5.target=java.lang.String\ breathe()
+comment6.params=
+comment6.target=java.lang.String\ toString()
+comment7.params=
+comment7.target=java.lang.String\ injure()
+comment8.params=chance
+comment8.target=java.lang.String\ chanceOfallergy(int)
+numComments=9

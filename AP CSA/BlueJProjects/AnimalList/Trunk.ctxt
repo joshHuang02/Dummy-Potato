@@ -1,0 +1,19 @@
+#BlueJ class context
+comment0.target=Trunk
+comment1.params=trunkLength\ name\ isWorking
+comment1.target=Trunk(int,\ java.lang.String,\ boolean)
+comment2.params=
+comment2.target=java.lang.String\ swing()
+comment3.params=
+comment3.target=java.lang.String\ toString()
+comment4.params=
+comment4.target=java.lang.String\ action1()
+comment5.params=
+comment5.target=java.lang.String\ injure()
+comment6.params=
+comment6.target=java.lang.String\ heal()
+comment7.params=trunkLength
+comment7.target=void\ setTrunkLength(int)
+comment8.params=
+comment8.target=int\ getTrunkLength()
+numComments=9

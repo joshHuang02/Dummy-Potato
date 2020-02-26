@@ -1,0 +1,21 @@
+#BlueJ class context
+comment0.target=Antenna
+comment1.params=antennaType\ canSense
+comment1.target=Antenna(java.lang.String,\ boolean)
+comment2.params=antennaType
+comment2.target=Antenna(java.lang.String)
+comment3.params=antennaType
+comment3.target=void\ setAntennaType(java.lang.String)
+comment4.params=
+comment4.target=java.lang.String\ getAntennaType()
+comment5.params=canSense
+comment5.target=java.lang.String\ setCanSense(boolean)
+comment6.params=
+comment6.target=boolean\ getCanSense()
+comment7.params=
+comment7.target=java.lang.String\ sense()
+comment8.params=
+comment8.target=java.lang.String\ stolen()
+comment9.params=
+comment9.target=java.lang.String\ retrieve()
+numComments=10

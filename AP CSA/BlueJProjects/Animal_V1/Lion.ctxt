@@ -1,0 +1,14 @@
+#BlueJ class context
+comment0.target=Lion
+comment0.text=\r\n\ The\ Lion\ class\ specifies\ lion\ parts\ and\ certain\ actions\ performed\ by\ the\ lion.\r\n\r\n\ Anoushka\ Bhat\ \r\n\ 01/08/2020\r\n
+comment1.params=name\ age\ isAlive
+comment1.target=Lion(java.lang.String,\ int,\ boolean)
+comment2.params=
+comment2.target=java.lang.String\ pounce()
+comment3.params=
+comment3.target=java.lang.String\ sniff()
+comment4.params=
+comment4.target=java.lang.String\ lookForPrey()
+comment5.params=
+comment5.target=java.lang.String\ goToVet()
+numComments=6

@@ -1,0 +1,6 @@
+#BlueJ class context
+comment0.target=UserInput
+comment0.text=\r\n\ This\ class\ takes\ a\ user\ input\ to\ encode\r\n\r\n\ @author\ Josh\ Huang\r\n\ @version\ 9/19/2019\r\n
+comment1.params=
+comment1.target=java.lang.String\ getString()
+numComments=2

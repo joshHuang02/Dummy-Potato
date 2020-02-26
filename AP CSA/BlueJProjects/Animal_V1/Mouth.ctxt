@@ -1,0 +1,21 @@
+#BlueJ class context
+comment0.target=Mouth
+comment1.params=mouthSizeInInches\ isUsable
+comment1.target=Mouth(double,\ boolean)
+comment2.params=isUsable
+comment2.target=Mouth(boolean)
+comment3.params=
+comment3.target=java.lang.String\ eat()
+comment4.params=
+comment4.target=java.lang.String\ injure()
+comment5.params=
+comment5.target=java.lang.String\ heal()
+comment6.params=
+comment6.target=double\ getMouthSizeInInches()
+comment7.params=
+comment7.target=boolean\ getIsUsable()
+comment8.params=mouthSizeInInches
+comment8.target=void\ setMouthSizeInInches(double)
+comment9.params=isUsable
+comment9.target=void\ setIsUsable(boolean)
+numComments=10

@@ -1,0 +1,19 @@
+#BlueJ class context
+comment0.target=Flipper
+comment1.params=nameOfPart\ isWorking\ length
+comment1.target=Flipper(java.lang.String,\ boolean,\ double)
+comment2.params=
+comment2.target=java.lang.String\ heal()
+comment3.params=
+comment3.target=java.lang.String\ injure()
+comment4.params=
+comment4.target=java.lang.String\ action1()
+comment5.params=
+comment5.target=java.lang.String\ toString()
+comment6.params=
+comment6.target=java.lang.String\ paddle()
+comment7.params=length
+comment7.target=void\ setLength(double)
+comment8.params=
+comment8.target=double\ getLength()
+numComments=9

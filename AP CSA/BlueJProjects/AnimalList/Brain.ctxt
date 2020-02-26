@@ -1,0 +1,21 @@
+#BlueJ class context
+comment0.target=Brain
+comment1.params=weightInPounds
+comment1.target=Brain(double)
+comment2.params=weightInPounds\ isWorking
+comment2.target=Brain(double,\ boolean)
+comment3.params=
+comment3.target=java.lang.String\ action1()
+comment4.params=
+comment4.target=java.lang.String\ sendSignals()
+comment5.params=
+comment5.target=java.lang.String\ toString()
+comment6.params=
+comment6.target=java.lang.String\ injure()
+comment7.params=
+comment7.target=java.lang.String\ heal()
+comment8.params=
+comment8.target=double\ getWeightInPounds()
+comment9.params=weightInPounds
+comment9.target=void\ setWeightInPounds(double)
+numComments=10

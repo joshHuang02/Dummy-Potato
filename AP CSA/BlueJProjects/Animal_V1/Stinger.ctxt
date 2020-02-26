@@ -1,0 +1,27 @@
+#BlueJ class context
+comment0.target=Stinger
+comment1.params=isUsable\ hasVenom\ lengthInMM
+comment1.target=Stinger(boolean,\ boolean,\ int)
+comment10.params=
+comment10.target=java.lang.String\ injure()
+comment11.params=
+comment11.target=java.lang.String\ heal()
+comment12.params=
+comment12.target=java.lang.String\ sting()
+comment2.params=isUsable\ hasVenom
+comment2.target=Stinger(boolean,\ boolean)
+comment3.params=
+comment3.target=Stinger()
+comment4.params=
+comment4.target=boolean\ getIsUsable()
+comment5.params=isUsable
+comment5.target=void\ setIsUsable(boolean)
+comment6.params=
+comment6.target=boolean\ getHasVenom()
+comment7.params=hasVenom
+comment7.target=void\ setHasVenom(boolean)
+comment8.params=
+comment8.target=int\ getLengthInMM()
+comment9.params=lengthInMM
+comment9.target=void\ setLengthInMM(int)
+numComments=13

@@ -1,0 +1,14 @@
+#BlueJ class context
+comment0.target=Mule
+comment0.text=\r\n\ The\ class\ creates\ a\ mule\ animal\ with\ four\ actions.\r\n\r\n\ @author\ (Mingyu\ Liu)\r\n\ @version\ 1.9.5\r\n
+comment1.params=age\ name\ isAlive
+comment1.target=Mule(int,\ java.lang.String,\ boolean)
+comment2.params=
+comment2.target=java.lang.String\ attack()
+comment3.params=
+comment3.target=java.lang.String\ experienceSignificantEmotionalEvent()
+comment4.params=
+comment4.target=java.lang.String\ relax()
+comment5.params=
+comment5.target=void\ visitHospital()
+numComments=6

@@ -1,0 +1,39 @@
+Class documentation
+<---- javadoc command: ---->
+C:\Program Files (x86)\BlueJ\jdk\bin\javadoc.exe
+-author
+-version
+-nodeprecated
+-package
+-Xdoclint:none
+-noindex
+-notree
+-nohelp
+-nonavbar
+-source
+1.8
+-classpath
+C:\Program Files (x86)\BlueJ\lib\bluejcore.jar;C:\Program Files (x86)\BlueJ\lib\junit-4.11.jar;C:\Program Files (x86)\BlueJ\lib\hamcrest-core-1.3.jar;C:\Program Files (x86)\BlueJ\lib\lang-stride.jar;C:\Program Files (x86)\BlueJ\lib\userlib\pi4j-core.jar;C:\Program Files (x86)\BlueJ\lib\userlib\pi4j-device.jar;C:\Program Files (x86)\BlueJ\lib\userlib\pi4j-gpio-extension.jar;C:\Program Files (x86)\BlueJ\lib\userlib\pi4j-service.jar;G:\My Drive\BlueJProjects\MediaLib
+-d
+G:\My Drive\BlueJProjects\MediaLib\doc
+-encoding
+UTF-8
+-charset
+UTF-8
+G:\My Drive\BlueJProjects\MediaLib\Song.java
+<---- end of javadoc command ---->
+Loading source file G:\My Drive\BlueJProjects\MediaLib\Song.java...
+Constructing Javadoc information...
+Standard Doclet version 1.8.0_181
+Building tree for all the packages and classes...
+Generating G:\My Drive\BlueJProjects\MediaLib\doc\Song.html...
+G:\My Drive\BlueJProjects\MediaLib\Song.java:20: warning - @param argument "title" is not a parameter name.
+Generating G:\My Drive\BlueJProjects\MediaLib\doc\package-frame.html...
+Generating G:\My Drive\BlueJProjects\MediaLib\doc\package-summary.html...
+Generating G:\My Drive\BlueJProjects\MediaLib\doc\constant-values.html...
+Building index for all the packages and classes...
+Building index for all classes...
+Generating G:\My Drive\BlueJProjects\MediaLib\doc\allclasses-frame.html...
+Generating G:\My Drive\BlueJProjects\MediaLib\doc\allclasses-noframe.html...
+Generating G:\My Drive\BlueJProjects\MediaLib\doc\index.html...
+1 warning

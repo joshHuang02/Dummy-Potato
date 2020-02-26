@@ -1,0 +1,18 @@
+#BlueJ class context
+comment0.target=Mollusca
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Mollusca\ here.\r\n\r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=name\ currentAgeInYears\ isAlive\ weightOfBrain\ leftEyeName\ leftEyeColor\ leftEyeIsWorking\ rightEyeName\ rightEyeColor\ rightEyeIsWorking\ heartColor\ heartIsWorking\ mouthName\ mouthSizeInInches\ mouthIsWorking
+comment1.target=Mollusca(java.lang.String,\ double,\ boolean,\ double,\ java.lang.String,\ java.lang.String,\ boolean,\ java.lang.String,\ java.lang.String,\ boolean,\ java.lang.String,\ boolean,\ java.lang.String,\ double,\ boolean)
+comment2.params=name\ currentAgeInYears\ weightOfBrain\ leftEyeName\ leftEyeColor\ rightEyeName\ rightEyeColor\ heartColor\ mouthName\ mouthSizeInInches
+comment2.target=Mollusca(java.lang.String,\ double,\ double,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ double)
+comment3.params=
+comment3.target=java.lang.String\ toString()
+comment4.params=
+comment4.target=Eye\ getLeftEye()
+comment5.params=
+comment5.target=Eye\ getRightEye()
+comment6.params=
+comment6.target=Mouth\ getMouth()
+comment7.params=
+comment7.target=Heart\ getHeart()
+numComments=8

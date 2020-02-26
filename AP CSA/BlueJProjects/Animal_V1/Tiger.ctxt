@@ -1,0 +1,12 @@
+#BlueJ class context
+comment0.target=Tiger
+comment0.text=\r\n\r\n\ \r\n\ @author\ Tong\ Su\ \ \ \ \ \ \r\n\ @version\ 1/7/2020\r\n\ \r\n\ \r\n\ \r\n
+comment1.params=name\ age
+comment1.target=Tiger(java.lang.String,\ int)
+comment2.params=
+comment2.target=java.lang.String\ eat()
+comment3.params=
+comment3.target=java.lang.String\ running()
+comment4.params=
+comment4.target=java.lang.String\ smell()
+numComments=5

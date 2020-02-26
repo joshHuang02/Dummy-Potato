@@ -1,0 +1,20 @@
+#BlueJ class context
+comment0.target=Nose
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Nose\ here.\r\n\r\n\ @author\ Josh\ Huang\r\n\ @version\ 1/6/2020\r\n
+comment1.params=stuffed\ sensitivity
+comment1.target=Nose(boolean,\ int)
+comment2.params=sensitivity
+comment2.target=Nose(int)
+comment3.params=
+comment3.target=boolean\ getIsStuffed()
+comment4.params=stuffed
+comment4.target=void\ setIsStuffed(boolean)
+comment5.params=
+comment5.target=java.lang.String\ alergic()
+comment6.params=
+comment6.target=java.lang.String\ clear()
+comment7.params=
+comment7.target=java.lang.String\ breath()
+comment8.params=chance
+comment8.target=java.lang.String\ chanceOfAlergy(int)
+numComments=9

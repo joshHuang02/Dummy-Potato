@@ -1,0 +1,25 @@
+#BlueJ class context
+comment0.target=Trunk
+comment1.params=diameterInFeet
+comment1.target=Trunk(int)
+comment10.params=
+comment10.target=int\ getdiameterInFeet()
+comment11.params=diameterInFeet
+comment11.target=void\ setdiameterInFeet(int)
+comment2.params=nameOfComponent\ diameterInFeet\ isWorking\ chanceOfFailure
+comment2.target=Trunk(java.lang.String,\ int,\ boolean,\ double)
+comment3.params=
+comment3.target=java.lang.String\ toString()
+comment4.params=
+comment4.target=java.lang.String\ action1()
+comment5.params=
+comment5.target=java.lang.String\ action2()
+comment6.params=
+comment6.target=java.lang.String\ open()
+comment7.params=
+comment7.target=java.lang.String\ close()
+comment8.params=
+comment8.target=java.lang.String\ damage()
+comment9.params=
+comment9.target=java.lang.String\ fix()
+numComments=12

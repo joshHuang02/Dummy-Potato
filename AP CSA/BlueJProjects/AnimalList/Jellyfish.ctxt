@@ -1,0 +1,27 @@
+#BlueJ class context
+comment0.target=Jellyfish
+comment0.text=\r\n\ Jellyfish\ can\ eat,\ be\ afraid,\ and\ hunt\r\n\r\n\ @author\ Josh\ Huang\ \ \r\n\ @version\ 1/24/2020\r\n
+comment1.params=name\ currentAgeInYears\ isAlive\ weightOfBrain\ nameOfMouth\ mouthSizeInInches\ mouthIsWorking\ tentaclesColor
+comment1.target=Jellyfish(java.lang.String,\ double,\ boolean,\ double,\ java.lang.String,\ double,\ boolean,\ java.lang.String)
+comment10.params=
+comment10.target=java.lang.String\ revive()
+comment10.text=\r\n\ revive\ the\ Jellyfish\r\n\r\n\ @return\ String\ confirming\ if\ Jellyfish\ has\ been\ healed\r\n
+comment2.params=name\ currentAgeInYears\ weightOfBrain\ nameOfMouth\ mouthSizeInInches\ mouthIsWorking\ tentaclesColor
+comment2.target=Jellyfish(java.lang.String,\ double,\ double,\ java.lang.String,\ double,\ boolean,\ java.lang.String)
+comment3.params=
+comment3.target=java.lang.String\ weakAction()
+comment4.params=
+comment4.target=java.lang.String\ normalAction()
+comment5.params=
+comment5.target=java.lang.String\ strongAction()
+comment6.params=
+comment6.target=java.lang.String\ fear()
+comment6.text=\r\n\ Jellyfish\ displays\ fear\ by\ curing\ its\ tentacles\r\n\r\n\ @return\ each\ tentacle\ constricting\r\n
+comment7.params=
+comment7.target=java.lang.String\ eatWithTentacles()
+comment8.params=
+comment8.target=java.lang.String\ hunt()
+comment8.text=\r\n\ Jellyfish\ attempts\ to\ hunt\ with\ tentacles\ and\ then\ eat\r\n\r\n\ @return\ whether\ or\ not\ the\ Jellyfish\ can\ eat\ and\ if\ each\ tentacle\ attacked\r\n
+comment9.params=
+comment9.target=java.lang.String\ toString()
+numComments=11

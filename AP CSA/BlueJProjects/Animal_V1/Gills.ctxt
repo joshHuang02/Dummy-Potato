@@ -1,0 +1,21 @@
+#BlueJ class context
+comment0.target=Gills
+comment1.params=length\ isUsable
+comment1.target=Gills(int,\ boolean)
+comment2.params=length
+comment2.target=Gills(int)
+comment3.params=
+comment3.target=java.lang.String\ breathe()
+comment4.params=
+comment4.target=java.lang.String\ injure()
+comment5.params=
+comment5.target=java.lang.String\ heal()
+comment6.params=length
+comment6.target=void\ setLength(int)
+comment7.params=
+comment7.target=int\ getLength()
+comment8.params=isUsable
+comment8.target=java.lang.String\ setIsUsable(boolean)
+comment9.params=
+comment9.target=boolean\ getIsUsable()
+numComments=10

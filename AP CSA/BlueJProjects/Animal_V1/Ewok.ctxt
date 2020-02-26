@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=Ewok
+comment1.params=name\ currentAge
+comment1.target=Ewok(java.lang.String,\ int)
+comment2.params=name\ currentAge\ isAlive
+comment2.target=Ewok(java.lang.String,\ int,\ boolean)
+comment3.params=
+comment3.target=java.lang.String\ blink()
+comment4.params=
+comment4.target=java.lang.String\ panic()
+comment5.params=
+comment5.target=void\ visitHospital()
+numComments=6

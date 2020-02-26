@@ -1,0 +1,26 @@
+#BlueJ class context
+comment0.target=Bird
+comment0.text=\r\n\ THIS\ IS\ PARENT\ CLASS\ OF\ ALL\ BIRDS\r\n\r\n\ @author\ Eva\ Luo,\ Alyssa\ Wu,\ Lauren\ Lee\r\n\ @version\ 1/22/2020\r\n
+comment1.params=name\ currentAgeInYears\ isAlive\ weightOfBrain\ nameOfLeftEye\ colorOfLeftEye\ leftEyeIsWorking\ nameOfRightEye\ colorOfRightEye\ rightEyeIsWorking\ lengthOfBeak\ beakIsWorking\ colorOfHeart\ heartIsWorking\ leftWingIsWorking\ colorOfLeftWing\ rightWingIsWorking\ colorOfRightWing\ nameOfLeftLeg\ lengthOfLeftLeg\ leftLegIsWorking\ nameOfRightLeg\ lengthOfRightLeg\ rightLegIsWorking
+comment1.target=Bird(java.lang.String,\ double,\ boolean,\ double,\ java.lang.String,\ java.lang.String,\ boolean,\ java.lang.String,\ java.lang.String,\ boolean,\ double,\ boolean,\ java.lang.String,\ boolean,\ boolean,\ java.lang.String,\ boolean,\ java.lang.String,\ java.lang.String,\ int,\ boolean,\ java.lang.String,\ int,\ boolean)
+comment10.params=
+comment10.target=Leg\ getLeftLeg()
+comment11.params=
+comment11.target=Leg\ getRightLeg()
+comment2.params=name\ currentAgeInYears\ weightOfBrain\ nameOfLeftEye\ colorOfLeftEye\ nameOfRightEye\ colorOfRightEye\ lengthOfBeak\ colorOfHeart\ colorOfLeftWing\ colorOfRightWing\ nameOfLeftLeg\ lengthOfLeftLeg\ nameOfRightLeg\ lengthOfRightLeg
+comment2.target=Bird(java.lang.String,\ double,\ double,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ double,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ int,\ java.lang.String,\ int)
+comment3.params=
+comment3.target=java.lang.String\ toString()
+comment4.params=
+comment4.target=Eye\ getLeftEye()
+comment5.params=
+comment5.target=Eye\ getRightEye()
+comment6.params=
+comment6.target=Beak\ getBeak()
+comment7.params=
+comment7.target=Wing\ getLeftWing()
+comment8.params=
+comment8.target=Wing\ getRightWing()
+comment9.params=
+comment9.target=Heart\ getHeart()
+numComments=12

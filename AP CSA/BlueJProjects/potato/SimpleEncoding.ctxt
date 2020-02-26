@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.target=SimpleEncoding
+comment0.text=\r\n\ This\ class\ will\ encode\ and\ decode\ a\ message\ by\ simply\ scrambling\ the\ strings\r\n\r\n\ @author\ Josh\ Huang\r\n\ @version\ 9/19/2019\r\n
+comment1.params=
+comment1.target=void\ main()
+comment2.params=
+comment2.target=java.lang.String\ encode()
+comment3.params=
+comment3.target=java.lang.String\ UserInput()
+numComments=4

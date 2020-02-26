@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=Octopus
+comment1.params=
+comment1.target=Octopus()
+comment2.params=
+comment2.target=java.lang.String\ swim()
+comment3.params=
+comment3.target=java.lang.String\ eat()
+comment4.params=
+comment4.target=java.lang.String\ attack()
+comment5.params=
+comment5.target=java.lang.String\ heal()
+numComments=6

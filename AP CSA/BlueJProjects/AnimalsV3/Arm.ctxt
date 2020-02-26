@@ -1,0 +1,19 @@
+#BlueJ class context
+comment0.target=Arm
+comment1.params=name\ lengthInInches\ isWorking
+comment1.target=Arm(java.lang.String,\ double,\ boolean)
+comment2.params=
+comment2.target=java.lang.String\ toString()
+comment3.params=
+comment3.target=java.lang.String\ action1()
+comment4.params=
+comment4.target=java.lang.String\ wave()
+comment5.params=
+comment5.target=java.lang.String\ injure()
+comment6.params=
+comment6.target=java.lang.String\ heal()
+comment7.params=lengthInInches
+comment7.target=void\ setLengthInInches(double)
+comment8.params=
+comment8.target=double\ getLengthInInches()
+numComments=9

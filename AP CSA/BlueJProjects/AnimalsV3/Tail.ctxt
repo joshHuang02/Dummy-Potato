@@ -1,0 +1,19 @@
+#BlueJ class context
+comment0.target=Tail
+comment1.params=lengthInCm\ isWorking\ nameOfPart
+comment1.target=Tail(int,\ boolean,\ java.lang.String)
+comment2.params=
+comment2.target=java.lang.String\ wag()
+comment3.params=
+comment3.target=java.lang.String\ action1()
+comment4.params=
+comment4.target=java.lang.String\ injure()
+comment5.params=
+comment5.target=java.lang.String\ heal()
+comment6.params=
+comment6.target=java.lang.String\ toString()
+comment7.params=
+comment7.target=int\ getLengthInCm()
+comment8.params=lengthInCm
+comment8.target=void\ setLengthInCm(int)
+numComments=9

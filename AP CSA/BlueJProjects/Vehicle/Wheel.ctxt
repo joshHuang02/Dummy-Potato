@@ -1,0 +1,25 @@
+#BlueJ class context
+comment0.target=Wheel
+comment1.params=tirePressureInPSI\ rimDiameterInInches
+comment1.target=Wheel(int,\ int)
+comment10.params=
+comment10.target=int\ getRimDiameterInInches()
+comment11.params=rimDiameterInInches
+comment11.target=void\ setRimDiameterInInches(int)
+comment2.params=nameOfComponent\ tirePressureInPSI\ rimDiameterInInches\ isWorking
+comment2.target=Wheel(java.lang.String,\ int,\ int,\ boolean)
+comment3.params=
+comment3.target=java.lang.String\ toString()
+comment4.params=
+comment4.target=java.lang.String\ action1()
+comment5.params=
+comment5.target=java.lang.String\ rotate()
+comment6.params=
+comment6.target=java.lang.String\ damage()
+comment7.params=
+comment7.target=java.lang.String\ fix()
+comment8.params=
+comment8.target=int\ getTirePressureInPSI()
+comment9.params=tirePressureInPSI
+comment9.target=void\ setTirePressureInPSI(int)
+numComments=12

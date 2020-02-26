@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=Cnidaria
+comment1.params=
+comment1.target=Cnidaria()
+comment2.params=name\ currentAgeInYears\ isAlive\ weightOfBrain\ nameOfMouth\ mouthSizeInInches\ mouthIsWorking\ tentaclesColor
+comment2.target=Cnidaria(java.lang.String,\ double,\ boolean,\ double,\ java.lang.String,\ double,\ boolean,\ java.lang.String)
+comment3.params=
+comment3.target=Mouth\ getMouth()
+comment4.params=
+comment4.target=Tentacle[]\ getTentacles()
+comment5.params=
+comment5.target=java.lang.String\ toString()
+numComments=6
