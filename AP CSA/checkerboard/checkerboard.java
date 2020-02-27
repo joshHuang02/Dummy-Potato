@@ -17,7 +17,8 @@ public class checkerboard {
                 newBoard();
                 printBoard();
             } else {
-                movePiece((int)move.charAt(0) - 48, (int)move.charAt(1) - 48, (int)move.charAt(2) - 48, (int)move.charAt(3) - 48);
+                movePiece((int) move.charAt(0) - 48, (int) move.charAt(1) - 48, (int) move.charAt(2) - 48,
+                        (int) move.charAt(3) - 48);
                 printBoard();
             }
         }
@@ -66,17 +67,15 @@ public class checkerboard {
     }
 
     public static void movePiece(int x0, int y0, int xf, int yf) {
-        String piece = board[x0][y0];
-        if (piece != board[xf][yf]) {
-          if (Math.abs(xf - x0) < 2 && Math.abs(yf - y0) < 2) {
-            board[xf][yf] = piece;
-            board[x0][y0] = null;
-          } else {
-            System.out.println("Move is out of range. ");
-          }
+        boolean checkSquareIsOccupied = board[x0][y0] != board[xf][yf];
+        boolean checkDiagonalMove = x0 != xf && y0 != yf;
+        boolean checkMoveInRange = Math.abs(xf - x0) < 3 && Math.abs(yf - y0) < 3;
+        if (checkSquareIsOccupied && checkDiagonalMove && checkMoveInRange) {
             
+            board[xf][yf] = board[x0][y0];
+            board[x0][y0] = null;
         } else {
-            System.out.println("Cannot stack pieces. ");
+            System.out.println("Illegal move. ");
         }
     }
 }
