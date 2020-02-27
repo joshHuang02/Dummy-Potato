@@ -71,9 +71,28 @@ public class checkerboard {
         boolean checkDiagonalMove = x0 != xf && y0 != yf;
         boolean checkMoveInRange = Math.abs(xf - x0) < 3 && Math.abs(yf - y0) < 3;
         if (checkSquareIsOccupied && checkDiagonalMove && checkMoveInRange) {
+            if (Math.abs(xf - x0) < 2 && Math.abs(yf - y0) < 2) {
+                board[xf][yf] = board[x0][y0];
+                board[x0][y0] = null;
+            } else {
+                boolean ableToJump = false;
+                if (xf-x0 > 0 && yf-y0 > 0 && board[xf-1][yf-1] != board[x0][y0] && board[xf-1][yf-1] != null) {
+                    ableToJump = true;
+                } else if (xf-x0 < 0 && yf-yo > 0 && board[xf+1][yf-1] != board[x0][y0] && board[xf+1][yf-1] != null) {
+                    ableToJump = true;
+                } else if (xf-x0 > 0 && yf-yo < 0 && board[xf-1][yf+1] != board[x0][y0] && board[xf-1][yf+1] != null) {
+                    ableToJump = true;
+                } else if (xf-x0 < 0 && yf-yo < 0 && board[xf+1][yf+1] != board[x0][y0] && board[xf+1][yf+1] != null) {
+                    ableToJump = true;
+                }
+                if (ableToJump) {
+                    board[xf][yf] = board[x0][y0];
+                    board[x0][y0] = null;
+                } else {
+                    System.out.println("Cannot jump. ");
+                }
+            }
             
-            board[xf][yf] = board[x0][y0];
-            board[x0][y0] = null;
         } else {
             System.out.println("Illegal move. ");
         }
