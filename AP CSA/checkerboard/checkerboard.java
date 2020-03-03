@@ -109,8 +109,9 @@ public class checkerboard {
         
             String bottomRight = board[x0+1][y0-1];
             String jumpRight = board[x0+2][y0-2];
-            if (bottomRight.equals("WHITE") && jumpRight == null) availableJumps++;
-            if (bottomLeft.equals("WHITE") && jumpLeft == null) availableJumps++;
+            // if (bottomRight.equals("WHITE") && jumpRight == null) availableJumps++;
+            // if (bottomLeft.equals("WHITE") && jumpLeft == null) availableJumps++;
         }
+        return true;
     }
 }
