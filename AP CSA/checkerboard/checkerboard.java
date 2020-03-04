@@ -1,3 +1,4 @@
+import java.nio.channels.AcceptPendingException;
 import java.util.*;
 
 public class checkerboard {
@@ -15,12 +16,15 @@ public class checkerboard {
             } else if (move.equals("restart")) {
                 System.out.println("Game restarted. ");
                 newBoard();
-                printBoard();
             } else {
-                movePiece((int) move.charAt(0) - 48, (int) move.charAt(1) - 48, (int) move.charAt(2) - 48,
-                        (int) move.charAt(3) - 48);
-                printBoard();
+                if (move.length() != 4) {
+                    System.out.println("Invalid Coordinates");
+                } else {
+                    movePiece((int) move.charAt(0) - 48, (int) move.charAt(1) - 48, (int) move.charAt(2) - 48,
+                            (int) move.charAt(3) - 48);
+                }
             }
+            printBoard();
         }
 
     };
@@ -76,13 +80,17 @@ public class checkerboard {
                 board[x0][y0] = null;
             } else {
                 boolean ableToJump = false;
-                if (xf-x0 > 0 && yf-y0 > 0 && board[xf-1][yf-1] != board[x0][y0] && board[xf-1][yf-1] != null) {
+                if (xf - x0 > 0 && yf - y0 > 0 && board[xf - 1][yf - 1] != board[x0][y0]
+                        && board[xf - 1][yf - 1] != null) {
                     ableToJump = true;
-                } else if (xf-x0 < 0 && yf-y0 > 0 && board[xf+1][yf-1] != board[x0][y0] && board[xf+1][yf-1] != null) {
+                } else if (xf - x0 < 0 && yf - y0 > 0 && board[xf + 1][yf - 1] != board[x0][y0]
+                        && board[xf + 1][yf - 1] != null) {
                     ableToJump = true;
-                } else if (xf-x0 > 0 && yf-y0 < 0 && board[xf-1][yf+1] != board[x0][y0] && board[xf-1][yf+1] != null) {
+                } else if (xf - x0 > 0 && yf - y0 < 0 && board[xf - 1][yf + 1] != board[x0][y0]
+                        && board[xf - 1][yf + 1] != null) {
                     ableToJump = true;
-                } else if (xf-x0 < 0 && yf-y0 < 0 && board[xf+1][yf+1] != board[x0][y0] && board[xf+1][yf+1] != null) {
+                } else if (xf - x0 < 0 && yf - y0 < 0 && board[xf + 1][yf + 1] != board[x0][y0]
+                        && board[xf + 1][yf + 1] != null) {
                     ableToJump = true;
                 }
                 if (ableToJump) {
@@ -92,26 +100,23 @@ public class checkerboard {
                     System.out.println("Cannot jump. ");
                 }
             }
-            
+
         } else {
             System.out.println("Illegal move. ");
         }
     }
 
-    private static boolean canJump(int x0, int y0) {
-        if (board[x0][y0].equals("BLACK")) {
-            // ArrayList<Boolean> availableJumps = new ArrayList<Boolean>();
-            int availableJumps = 0;
-            try {
-                String bottomLeft = board[x0-1][y0-1];
-                String jumpLeft = board[x0-2][y0-2];
-            } catch(Exception e) {}
-        
-            String bottomRight = board[x0+1][y0-1];
-            String jumpRight = board[x0+2][y0-2];
-            // if (bottomRight.equals("WHITE") && jumpRight == null) availableJumps++;
-            // if (bottomLeft.equals("WHITE") && jumpLeft == null) availableJumps++;
+    private static boolean[] canJump(int x0, int y0) {
+        boolean[] availableJumps = { false, false };
+        if (x0 < 6 && x0 > 1) {
+            if (board[x0][y0].equals("BLACK") && board[x0 - 1][y0 - 1].equals("WHITE")
+                    && board[x0 - 2][y0 - 2] == null) {
+                availableJumps[0] = true;
+            }
+            if (board[x0][y0].equals("BLACK") && board[x0 - 1][y0 - 1].equals("WHITE")
+                    && board[x0 - 2][y0 - 2] == null) {
+            }
         }
-        return true;
+        return availableJumps;
     }
 }
