@@ -1,10 +1,16 @@
-import java.nio.channels.AcceptPendingException;
 import java.util.*;
 
 public class checkerboard {
     private static String[][] board = new String[8][8];
 
     public static void main(String[] args) {
+        int[][] b = new int[7][2];
+        for (int[]a : b){
+            for (int i : a){
+                System.out.print(i);
+            }
+            System.out.println();
+        }
         Scanner scan = new Scanner(System.in); // Create a Scanner object
         System.out.println();
         newBoard();
@@ -79,25 +85,25 @@ public class checkerboard {
                 board[xf][yf] = board[x0][y0];
                 board[x0][y0] = null;
             } else {
-                boolean ableToJump = false;
-                if (xf - x0 > 0 && yf - y0 > 0 && board[xf - 1][yf - 1] != board[x0][y0]
-                        && board[xf - 1][yf - 1] != null) {
-                    ableToJump = true;
-                } else if (xf - x0 < 0 && yf - y0 > 0 && board[xf + 1][yf - 1] != board[x0][y0]
-                        && board[xf + 1][yf - 1] != null) {
-                    ableToJump = true;
-                } else if (xf - x0 > 0 && yf - y0 < 0 && board[xf - 1][yf + 1] != board[x0][y0]
-                        && board[xf - 1][yf + 1] != null) {
-                    ableToJump = true;
-                } else if (xf - x0 < 0 && yf - y0 < 0 && board[xf + 1][yf + 1] != board[x0][y0]
-                        && board[xf + 1][yf + 1] != null) {
-                    ableToJump = true;
-                }
-                if (ableToJump) {
-                    board[xf][yf] = board[x0][y0];
-                    board[x0][y0] = null;
-                } else {
-                    System.out.println("Cannot jump. ");
+                // boolean ableToJump = false;
+                // if (xf - x0 > 0 && yf - y0 > 0 && board[xf - 1][yf - 1] != board[x0][y0]
+                //         && board[xf - 1][yf - 1] != null) {
+                //     ableToJump = true;
+                // } else if (xf - x0 < 0 && yf - y0 > 0 && board[xf + 1][yf - 1] != board[x0][y0]
+                //         && board[xf + 1][yf - 1] != null) {
+                //     ableToJump = true;
+                // } else if (xf - x0 > 0 && yf - y0 < 0 && board[xf - 1][yf + 1] != board[x0][y0]
+                //         && board[xf - 1][yf + 1] != null) {
+                //     ableToJump = true;
+                // } else if (xf - x0 < 0 && yf - y0 < 0 && board[xf + 1][yf + 1] != board[x0][y0]
+                //         && board[xf + 1][yf + 1] != null) {
+                //     ableToJump = true;
+                // }
+                boolean[] availableJumps = canJump(x0, y0);
+                if (board[x0][y0].equals("BLACK")) {
+                    if (xf - x0 < 0  && Math.abs(yf - y0) == 2 && availableJumps[0] == true) {
+
+                    }
                 }
             }
 
@@ -109,13 +115,21 @@ public class checkerboard {
     private static boolean[] canJump(int x0, int y0) {
         boolean[] availableJumps = { false, false };
         if (x0 < 6 && x0 > 1) {
-            if (board[x0][y0].equals("BLACK") && board[x0 - 1][y0 - 1].equals("WHITE")
+            if (board[x0][y0].equals("BLACK") && board[x0 + 1][y0 - 1].equals("WHITE")
+                    && board[x0 + 2][y0 - 2] == null) {
+                availableJumps[0] = true;
+            } else if (board[x0][y0].equals("WHITE") && board[x0 - 1][y0 - 1].equals("BLACK")
                     && board[x0 - 2][y0 - 2] == null) {
                 availableJumps[0] = true;
             }
-            if (board[x0][y0].equals("BLACK") && board[x0 - 1][y0 - 1].equals("WHITE")
-                    && board[x0 - 2][y0 - 2] == null) {
+            if (board[x0][y0].equals("BLACK") && board[x0 + 1][y0 + 1].equals("WHITE")
+                    && board[x0 + 2][y0 + 2] == null) {
+                availableJumps[1] = true;
+            } else if (board[x0][y0].equals("WHITE") && board[x0 - 1][y0 + 1].equals("BLACK")
+                    && board[x0 - 2][y0 + 2] == null) {
+                availableJumps[1] = true;
             }
+
         }
         return availableJumps;
     }
