@@ -5,8 +5,8 @@ public class checkerboard {
 
     public static void main(String[] args) {
         int[][] b = new int[7][2];
-        for (int[]a : b){
-            for (int i : a){
+        for (int[] a : b) {
+            for (int i : a) {
                 System.out.print(i);
             }
             System.out.println();
@@ -32,6 +32,7 @@ public class checkerboard {
             }
             printBoard();
         }
+        scan.close();
 
     };
 
@@ -85,28 +86,32 @@ public class checkerboard {
                 board[xf][yf] = board[x0][y0];
                 board[x0][y0] = null;
             } else {
-                // boolean ableToJump = false;
-                // if (xf - x0 > 0 && yf - y0 > 0 && board[xf - 1][yf - 1] != board[x0][y0]
-                //         && board[xf - 1][yf - 1] != null) {
-                //     ableToJump = true;
-                // } else if (xf - x0 < 0 && yf - y0 > 0 && board[xf + 1][yf - 1] != board[x0][y0]
-                //         && board[xf + 1][yf - 1] != null) {
-                //     ableToJump = true;
-                // } else if (xf - x0 > 0 && yf - y0 < 0 && board[xf - 1][yf + 1] != board[x0][y0]
-                //         && board[xf - 1][yf + 1] != null) {
-                //     ableToJump = true;
-                // } else if (xf - x0 < 0 && yf - y0 < 0 && board[xf + 1][yf + 1] != board[x0][y0]
-                //         && board[xf + 1][yf + 1] != null) {
-                //     ableToJump = true;
-                // }
                 boolean[] availableJumps = canJump(x0, y0);
-                if (board[x0][y0].equals("BLACK")) {
-                    if (xf - x0 < 0  && Math.abs(yf - y0) == 2 && availableJumps[0] == true) {
-
-                    }
+                switch (board[x0][y0]) {
+                    case "BLACK":
+                        if (xf - x0 > 0 && yf - y0 < 0 && availableJumps[0] == true) {
+                            board[xf][yf] = board[x0][y0];
+                            board[x0][y0] = null;
+                        } else if (xf - x0 > 0 && yf - y0 > 0 && availableJumps[1] == true) {
+                            board[xf][yf] = board[x0][y0];
+                            board[x0][y0] = null;
+                        } else {
+                            System.out.println("Cannot jump");
+                        }
+                        break;
+                    case "WHITE":
+                        if (xf - x0 < 0 && yf - y0 < 0 && availableJumps[0] == true) {
+                            board[xf][yf] = board[x0][y0];
+                            board[x0][y0] = null;
+                        } else if (xf - x0 < 0 && yf - y0 > 0 && availableJumps[1] == true) {
+                            board[xf][yf] = board[x0][y0];
+                            board[x0][y0] = null;
+                        } else {
+                            System.out.println("Cannot jump");
+                        }
+                        break;
                 }
             }
-
         } else {
             System.out.println("Illegal move. ");
         }
@@ -115,17 +120,17 @@ public class checkerboard {
     private static boolean[] canJump(int x0, int y0) {
         boolean[] availableJumps = { false, false };
         if (x0 < 6 && x0 > 1) {
-            if (board[x0][y0].equals("BLACK") && board[x0 + 1][y0 - 1].equals("WHITE")
+            if ("BLACK".equals(board[x0][y0]) && "WHITE".equals(board[x0 + 1][y0 - 1])
                     && board[x0 + 2][y0 - 2] == null) {
                 availableJumps[0] = true;
-            } else if (board[x0][y0].equals("WHITE") && board[x0 - 1][y0 - 1].equals("BLACK")
+            } else if ("WHITE".equals(board[x0][y0]) && "BLACK".equals(board[x0 + 1][y0 - 1])
                     && board[x0 - 2][y0 - 2] == null) {
                 availableJumps[0] = true;
             }
-            if (board[x0][y0].equals("BLACK") && board[x0 + 1][y0 + 1].equals("WHITE")
+            if ("BLACK".equals(board[x0][y0]) && "WHITE".equals(board[x0 + 1][y0 + 1])
                     && board[x0 + 2][y0 + 2] == null) {
                 availableJumps[1] = true;
-            } else if (board[x0][y0].equals("WHITE") && board[x0 - 1][y0 + 1].equals("BLACK")
+            } else if ("WHITE".equals(board[x0][y0]) && "BLACK".equals(board[x0 - 1][y0 + 1])
                     && board[x0 - 2][y0 + 2] == null) {
                 availableJumps[1] = true;
             }
