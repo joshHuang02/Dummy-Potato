@@ -1,0 +1,5 @@
+{
+    "editor.wordWrap": "on",
+    "editor.wordWrapColumn": 90,
+    "java.import.gradle.wrapper.enabled": false
+}

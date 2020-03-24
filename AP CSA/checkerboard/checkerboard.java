@@ -11,31 +11,47 @@ public class checkerboard {
         System.out.println();
         newBoard();
         printBoard();
-        while (true) {
+        while (Math.min(blackPieceCount, whitePieceCount) != 0) {
             if (blackTurn) {
                 System.out.print("BLACK Turn: ");
             } else {
                 System.out.print("WHITE Turn: ");
             }
             String move = scan.nextLine();
-            if (move.equals("exit")) {
+            if (move.equals("exit"))
                 break;
-            } else if (move.equals("restart")) {
-                System.out.println("Game restarted. ");
-                newBoard();
-            } else {
-                if (move.matches("[0-9]+") && move.length() != 4) {
-                    System.out.println("Invalid Coordinates");
-                } else {
-                    if (movePiece((int) move.charAt(0) - 48, (int) move.charAt(1) - 48, (int) move.charAt(2) - 48,
-                            (int) move.charAt(3) - 48)) {
-                        blackTurn = !blackTurn;
+            switch (move) {
+                case "":
+                    System.out.println("Please type coordiates");
+                    break;
+                case "restart":
+                    System.out.println("Game restarted. ");
+                    newBoard();
+                    break;
+                default:
+                    if (!move.matches("[0-9]+") || move.length() != 4) {
+                        System.out.println("Invalid Coordinates");
+                    } else {
+                        if (movePiece((int) move.charAt(0) - 48, (int) move.charAt(1) - 48, (int) move.charAt(2) - 48,
+                                (int) move.charAt(3) - 48)) {
+                            blackTurn = !blackTurn;
+                        }
+                        for (int i = 0; i < 8; i++) {
+                            if ("WHITE".equals(board[0][i]))
+                                board[0][i] = "WKING";
+                            if ("BLACK".equals(board[7][i]))
+                                board[7][i] = "BKING";
+                        }
                     }
-                }
+                    break;
             }
             printBoard();
         }
-        scan.close();
+        if (blackPieceCount == 0) {
+            System.out.println("WHITE wins!");
+        } else {
+            System.out.println("BLACK wins!");
+        }
     };
 
     public static boolean movePiece(int x0, int y0, int xf, int yf) {
@@ -45,40 +61,71 @@ public class checkerboard {
             boolean moveIsDiagonal = (x0 != xf && y0 != yf);
             boolean initialSquareIsOccupied = board[x0][y0] != null;
             if (squareIsNotOwnPiece && moveIsDiagonal && initialSquareIsOccupied) {
-                if (!((board[x0][y0].equals("BLACK") && blackTurn) || (board[x0][y0].equals("WHITE") && !blackTurn))) {
+                // implements rule that jump must be made if jump is possible
+                ArrayList<String> requiredJumps = new ArrayList<>();
+                for (int i = 0; i < 8; i++) {
+                    for (int j = 0; j < 8; j++) {
+                        ArrayList<Integer> availableJumps = availableJumps(i, j);
+                        if (board[i][j] != null && availableJumps.size() != 0) {
+                            for ( int coordiate : availableJumps) {
+                                requiredJumps.add(Integer.toString(i) + Integer.toString(j) + Integer.toString(coordiate));
+                            }
+                        }
+                    }
+                }
+
+                if (!((board[x0][y0].equals("BLACK") && blackTurn) || (board[x0][y0].equals("BKING") && blackTurn)
+                        || (board[x0][y0].equals("WHITE") && !blackTurn)
+                        || (board[x0][y0].equals("WKING") && !blackTurn))) {
                     System.out.println(
                             "Only BLACK pieces can be moved on BLACK Turn and only WHITE pieces can be moved on WHITE Turn");
                     return false;
-                } else if (Math.abs(xf - x0) < 2 && Math.abs(yf - y0) < 2 && board[xf][yf] == null) {
-                    board[xf][yf] = board[x0][y0];
-                    board[x0][y0] = null;
+                } else if (Math.abs(xf - x0) <= 1 && Math.abs(yf - y0) <= 1 && board[xf][yf] == null) {
+                    if (requiredJumps.size() != 0) {
+                        System.out.print("You must pick one of these move(s): ");
+                        System.out.println(Arrays.toString(requiredJumps.toArray()));
+                        return false;
+                    }
+                    ArrayList<Integer> availableMoves = availableMoves(x0, y0);
+                    if (availableMoves.contains(xf * 10 + yf)) {
+                        board[xf][yf] = board[x0][y0];
+                        board[x0][y0] = null;
+                        // implements rule that jumps must be chained if another jump is possible
+                        for (int i = 0; i < 8; i++) {
+                            for (int j = 0; j < 8; j++) {
+                                if (board[i][j] != null && i != xf && j != yf && availableJumps(i, j).size() != 0) {
+                                    // System.out.println(Arrays.toString(availableJumps(i, j).toArray()));
+                                    return false;
+                                }
+                            }
+                        }
+                    } else {
+                        System.out.println("Illegal move");
+                        return false;
+                    }
                 } else {
-                    boolean[] availableJumps = canJump(x0, y0);
-                    switch (board[x0][y0]) {
-                        case "BLACK":
-                            if (xf - x0 > 0 && yf - y0 < 0 && availableJumps[0] == true) {
-                                board[xf][yf] = board[x0][y0];
-                                board[x0][y0] = null;
-                            } else if (xf - x0 > 0 && yf - y0 > 0 && availableJumps[1] == true) {
-                                board[xf][yf] = board[x0][y0];
-                                board[x0][y0] = null;
-                            } else {
-                                System.out.println("Cannot jump");
-                                return false;
+                    ArrayList<Integer> availableJumps = availableJumps(x0, y0);
+                    if (availableJumps.contains(xf * 10 + yf)) {
+                        board[xf][yf] = board[x0][y0];
+                        board[x0][y0] = null;
+                        board[(x0 + xf) / 2][(y0 + yf) / 2] = null;
+                        if (blackTurn) {
+                            whitePieceCount--;
+                        } else {
+                            blackPieceCount--;
+                        }
+                        // implements rule that jumps must be chained if another jump is possible
+                        for (int i = 0; i < 8; i++) {
+                            for (int j = 0; j < 8; j++) {
+                                if (board[i][j] != null && availableJumps(i, j).size() != 0) {
+                                    // System.out.println(Arrays.toString(availableJumps(i, j).toArray()));
+                                    return false;
+                                }
                             }
-                            break;
-                        case "WHITE":
-                            if (xf - x0 < 0 && yf - y0 < 0 && availableJumps[0] == true) {
-                                board[xf][yf] = board[x0][y0];
-                                board[x0][y0] = null;
-                            } else if (xf - x0 < 0 && yf - y0 > 0 && availableJumps[1] == true) {
-                                board[xf][yf] = board[x0][y0];
-                                board[x0][y0] = null;
-                            } else {
-                                System.out.println("Cannot jump");
-                                return false;
-                            }
-                            break;
+                        }
+                    } else {
+                        System.out.println("Illegal move");
+                        return false;
                     }
                 }
             } else {
@@ -92,24 +139,74 @@ public class checkerboard {
         return true;
     }
 
-    private static boolean[] canJump(int x0, int y0) {
-        boolean[] availableJumps = { false, false };
-        if (x0 < 6 && x0 > 1) {
-            if ("BLACK".equals(board[x0][y0]) && "WHITE".equals(board[x0 + 1][y0 - 1])
-                    && board[x0 + 2][y0 - 2] == null) {
-                availableJumps[0] = true;
-            } else if ("WHITE".equals(board[x0][y0]) && "BLACK".equals(board[x0 + 1][y0 - 1])
-                    && board[x0 - 2][y0 - 2] == null) {
-                availableJumps[0] = true;
+    private static ArrayList<Integer> availableMoves(int x0, int y0) {
+        ArrayList<Integer> availableMoves = new ArrayList<Integer>();
+        if (blackTurn) {
+            // checks the left side move
+            if (x0 < 7 && y0 > 0 && board[x0 + 1][y0 - 1] == null)
+                availableMoves.add((x0 + 1) * 10 + (y0 - 1));
+            // check right side move
+            if (x0 < 7 && y0 < 7 && board[x0 + 1][y0 + 1] == null)
+                availableMoves.add((x0 + 1) * 10 + (y0 + 1));
+            // if piece if a king then check backwards moves
+            if ("KING".equals(board[x0][y0].substring(1))) {
+                if (x0 > 0 && y0 > 0 && board[x0 - 1][y0 - 1] == null)
+                    availableMoves.add((x0 - 1) * 10 + (y0 - 1));
+                if (x0 > 0 && y0 < 7 && board[x0 - 1][y0 + 1] == null)
+                    availableMoves.add((x0 - 1) * 10 + (y0 + 1));
             }
-            if ("BLACK".equals(board[x0][y0]) && "WHITE".equals(board[x0 + 1][y0 + 1])
-                    && board[x0 + 2][y0 + 2] == null) {
-                availableJumps[1] = true;
-            } else if ("WHITE".equals(board[x0][y0]) && "BLACK".equals(board[x0 - 1][y0 + 1])
-                    && board[x0 - 2][y0 + 2] == null) {
-                availableJumps[1] = true;
+        } else {
+            if (x0 > 0 && y0 > 0 && board[x0 - 1][y0 - 1] == null)
+                availableMoves.add((x0 - 1) * 10 + (y0 - 1));
+            if (x0 > 0 && y0 < 7 && board[x0 - 1][y0 + 1] == null)
+                availableMoves.add((x0 - 1) * 10 + (y0 + 1));
+            if ("KING".equals(board[x0][y0].substring(1))) {
+                if (x0 < 7 && y0 > 0 && board[x0 + 1][y0 - 1] == null)
+                    availableMoves.add((x0 + 1) * 10 + (y0 - 1));
+                if (x0 < 7 && y0 < 7 && board[x0 + 1][y0 + 1] == null)
+                    availableMoves.add((x0 + 1) * 10 + (y0 + 1));
             }
+        }
+        return availableMoves;
+    }
 
+    private static ArrayList<Integer> availableJumps(int x0, int y0) {
+        ArrayList<Integer> availableJumps = new ArrayList<Integer>();
+        if (blackTurn) {
+            if ("BLACK".equals(board[x0][y0])) {
+                if (x0 < 6 && y0 > 1 && ("WHITE".equals(board[x0 + 1][y0 - 1]) || "WKING".equals(board[x0 + 1][y0 - 1]))
+                        && board[x0 + 2][y0 - 2] == null)
+                    availableJumps.add((x0 + 2) * 10 + (y0 - 2));
+
+                if (x0 < 6 && y0 < 6 && ("WHITE".equals(board[x0 + 1][y0 + 1]) || "WKING".equals(board[x0 + 1][y0 + 1]))
+                        && board[x0 + 2][y0 + 2] == null)
+                    availableJumps.add((x0 + 2) * 10 + (y0 + 2));
+
+            } else if ("BKING".equals(board[x0][y0])) {
+                if (x0 > 1 && y0 > 1 && ("WHITE".equals(board[x0 - 1][y0 - 1]) || "WKING".equals(board[x0 - 1][y0 - 1]))
+                        && board[x0 - 2][y0 - 2] == null)
+                    availableJumps.add((x0 - 2) * 10 + (y0 - 2));
+
+                if (x0 > 1 && y0 < 6 && ("WHITE".equals(board[x0 - 1][y0 + 1]) || "WKING".equals(board[x0 - 1][y0 + 1]))
+                        && board[x0 - 2][y0 + 2] == null)
+                    availableJumps.add((x0 - 2) * 10 + (y0 + 2));
+            }
+        } else {
+            if ("WHITE".equals(board[x0][y0])) {
+                if (x0 > 1 && y0 > 1 && ("BLACK".equals(board[x0 - 1][y0 - 1]) || "BKING".equals(board[x0 - 1][y0 - 1]))
+                        && board[x0 - 2][y0 - 2] == null)
+                    availableJumps.add((x0 - 2) * 10 + (y0 - 2));
+                if (x0 > 1 && y0 < 6 && ("BLACK".equals(board[x0 - 1][y0 + 1]) || "BKING".equals(board[x0 - 1][y0 + 1]))
+                        && board[x0 - 2][y0 + 2] == null)
+                    availableJumps.add((x0 - 2) * 10 + (y0 + 2));
+            } else if ("WKING".equals(board[x0][y0])) {
+                if (x0 < 6 && y0 > 1 && ("BLACK".equals(board[x0 + 1][y0 - 1]) || "BKING".equals(board[x0 + 1][y0 - 1]))
+                        && board[x0 + 2][y0 - 2] == null)
+                    availableJumps.add((x0 + 2) * 10 + (y0 - 2));
+                if (x0 < 6 && y0 < 6 && ("BLACK".equals(board[x0 + 1][y0 + 1]) || "BKING".equals(board[x0 + 1][y0 + 1]))
+                        && board[x0 + 2][y0 + 2] == null)
+                    availableJumps.add((x0 + 2) * 10 + (y0 + 2));
+            }
         }
         return availableJumps;
     }
@@ -161,5 +258,6 @@ public class checkerboard {
         }
         blackPieceCount = 12;
         whitePieceCount = 12;
+        blackTurn = true;
     }
 }
