@@ -18,15 +18,42 @@ public class checkerboard {
                 System.out.print("WHITE Turn: ");
             }
             String move = scan.nextLine();
-            if (move.equals("exit"))
-                break;
             switch (move) {
-                case "":
-                    System.out.println("Please type coordiates");
-                    break;
                 case "restart":
                     System.out.println("Game restarted. ");
                     newBoard();
+                    break;
+                case "help":
+                    ArrayList<String> possibleMoves = new ArrayList<>();
+                    // ArrayList<Integer> finalCoordinates = new ArrayList<>();
+                    for (int i = 0; i < 8; i++) {
+                        for (int j = 0; j < 8; j++) {
+                            ArrayList<Integer> availableJumps = availableJumps(i, j);
+                            if (board[i][j] != null && availableJumps.size() != 0) {
+                                for (int coordiate : availableJumps) {
+                                    possibleMoves.add(
+                                            Integer.toString(i) + Integer.toString(j) + Integer.toString(coordiate));
+                                }
+                            }
+                        }
+                    }
+                    if (possibleMoves.size() == 0) {
+                        for (int i = 0; i < 8; i++) {
+                            for (int j = 0; j < 8; j++) {
+                                ArrayList<Integer> availableMoves = availableMoves(i, j);
+                                if (board[i][j] != null && availableMoves.size() != 0) {
+                                    for (int coordiate : availableMoves) {
+                                        possibleMoves.add(Integer.toString(i) + Integer.toString(j)
+                                                + Integer.toString(coordiate));
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    System.out.println(blackTurn);
+                    if (blackTurn) Collections.reverse(possibleMoves); 
+                    System.out.print("You have these possible move(s): ");
+                    System.out.println(Arrays.toString(possibleMoves.toArray()));
                     break;
                 default:
                     if (!move.matches("[0-9]+") || move.length() != 4) {
@@ -67,8 +94,9 @@ public class checkerboard {
                     for (int j = 0; j < 8; j++) {
                         ArrayList<Integer> availableJumps = availableJumps(i, j);
                         if (board[i][j] != null && availableJumps.size() != 0) {
-                            for ( int coordiate : availableJumps) {
-                                requiredJumps.add(Integer.toString(i) + Integer.toString(j) + Integer.toString(coordiate));
+                            for (int coordiate : availableJumps) {
+                                requiredJumps
+                                        .add(Integer.toString(i) + Integer.toString(j) + Integer.toString(coordiate));
                             }
                         }
                     }
@@ -141,7 +169,7 @@ public class checkerboard {
 
     private static ArrayList<Integer> availableMoves(int x0, int y0) {
         ArrayList<Integer> availableMoves = new ArrayList<Integer>();
-        if (blackTurn) {
+        if (blackTurn && ("BLACK".equals(board[x0][y0]) || "BKING".equals(board[x0][y0])) ) {
             // checks the left side move
             if (x0 < 7 && y0 > 0 && board[x0 + 1][y0 - 1] == null)
                 availableMoves.add((x0 + 1) * 10 + (y0 - 1));
@@ -149,18 +177,18 @@ public class checkerboard {
             if (x0 < 7 && y0 < 7 && board[x0 + 1][y0 + 1] == null)
                 availableMoves.add((x0 + 1) * 10 + (y0 + 1));
             // if piece if a king then check backwards moves
-            if ("KING".equals(board[x0][y0].substring(1))) {
+            if ("BKING".equals(board[x0][y0])) {
                 if (x0 > 0 && y0 > 0 && board[x0 - 1][y0 - 1] == null)
                     availableMoves.add((x0 - 1) * 10 + (y0 - 1));
                 if (x0 > 0 && y0 < 7 && board[x0 - 1][y0 + 1] == null)
                     availableMoves.add((x0 - 1) * 10 + (y0 + 1));
             }
-        } else {
+        } else if (!blackTurn && ("WHITE".equals(board[x0][y0]) || "WKING".equals(board[x0][y0])) ) {
             if (x0 > 0 && y0 > 0 && board[x0 - 1][y0 - 1] == null)
                 availableMoves.add((x0 - 1) * 10 + (y0 - 1));
             if (x0 > 0 && y0 < 7 && board[x0 - 1][y0 + 1] == null)
                 availableMoves.add((x0 - 1) * 10 + (y0 + 1));
-            if ("KING".equals(board[x0][y0].substring(1))) {
+            if ("WKING".equals(board[x0][y0])) {
                 if (x0 < 7 && y0 > 0 && board[x0 + 1][y0 - 1] == null)
                     availableMoves.add((x0 + 1) * 10 + (y0 - 1));
                 if (x0 < 7 && y0 < 7 && board[x0 + 1][y0 + 1] == null)
