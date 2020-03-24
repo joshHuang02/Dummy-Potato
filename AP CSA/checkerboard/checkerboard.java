@@ -50,7 +50,6 @@ public class checkerboard {
                             }
                         }
                     }
-                    System.out.println(blackTurn);
                     if (blackTurn) Collections.reverse(possibleMoves); 
                     System.out.print("You have these possible move(s): ");
                     System.out.println(Arrays.toString(possibleMoves.toArray()));
