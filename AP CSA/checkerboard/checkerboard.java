@@ -14,7 +14,8 @@ public class checkerboard {
         System.out.println();
         newBoard();
         printBoard();
-        // while none of the scores are 0, prints the board at the the end
+        // while none of the scores are 0, run the game, prints the board at the the end
+        // of each loop
         while (Math.min(blackPieceCount, whitePieceCount) != 0) {
             if (blackTurn) {
                 System.out.print("BLACK Turn: ");
@@ -67,28 +68,35 @@ public class checkerboard {
     };
 
     private static boolean movePiece(int x0, int y0, int xf, int yf) {
-        if (!((board[x0][y0].equals("BLACK") && blackTurn) || (board[x0][y0].equals("BKING") && blackTurn)
-                || (board[x0][y0].equals("WHITE") && !blackTurn) || (board[x0][y0].equals("WKING") && !blackTurn))) {
+        // checks if the initial square is correct color based on what turn it is
+        if (!(("BLACK".equals(board[x0][y0]) && blackTurn) || ("BKING".equals(board[x0][y0]) && blackTurn)
+                || ("WHITE".equals(board[x0][y0]) && !blackTurn) || ("WKING".equals(board[x0][y0]) && !blackTurn))) {
             System.out.println(
                     "Only BLACK pieces can be moved on BLACK Turn and only WHITE pieces can be moved on WHITE Turn");
             return false;
         }
         ArrayList<String> allPossibleMoves = allPossibleMoves();
+        // makes the coordinates into string for matching
         String moveCoordinates = Integer.toString(x0) + Integer.toString(y0) + Integer.toString(xf)
                 + Integer.toString(yf);
+        // if move is a step (move by one square) and is a possible move
         if (Math.abs(xf - x0) <= 1 && Math.abs(yf - y0) <= 1 && allPossibleMoves.contains(moveCoordinates)) {
             board[xf][yf] = board[x0][y0];
             board[x0][y0] = null;
             return true;
+            // else if move is a jump (over opponent piece) and is a possible move
         } else if (allPossibleMoves.contains(moveCoordinates)) {
             board[xf][yf] = board[x0][y0];
             board[x0][y0] = null;
-            board[(x0 + xf) / 2][(y0 + yf) / 2] = null;
+            board[(x0 + xf) / 2][(y0 + yf) / 2] = null; // makes the piece that was jumped over into null
+            // decrese opponent piece count by one
             if (blackTurn) {
                 whitePieceCount--;
             } else {
                 blackPieceCount--;
             }
+
+            // else if final coordinates are out of bounds
         } else {
             System.out.println("Illegal move, type 'help' for all possible moves");
             return false;
@@ -97,18 +105,19 @@ public class checkerboard {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 if (board[i][j] != null && availableJumps(i, j).size() != 0) {
-                    return false;
+                    return false; // returning false will NOT switch turns
                 }
             }
         }
-        return true;
+        return true; // returning true will switch turns
     }
 
+    // finds all possible moves of every one of your piece based on turn
     private static ArrayList<String> allPossibleMoves() {
         // possibleMoves stores all possible moves as String coordinates (includes
         // initial and final coordinates)
         ArrayList<String> possibleMoves = new ArrayList<>();
-        // for loop to see if there is any
+        // for loop every square to see if there is any available jumps
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 ArrayList<String> availableJumps = availableJumps(i, j);
@@ -119,10 +128,11 @@ public class checkerboard {
                 }
             }
         }
+        // if there is no jumps (because you must jump if there is a possible jump)
         if (possibleMoves.size() == 0) {
             for (int i = 0; i < 8; i++) {
                 for (int j = 0; j < 8; j++) {
-                    ArrayList<String> availableMoves = availableMoves(i, j);
+                    ArrayList<String> availableMoves = availableSteps(i, j);
                     if (board[i][j] != null && availableMoves.size() != 0) {
                         for (String coordiate : availableMoves) {
                             possibleMoves.add(Integer.toString(i) + Integer.toString(j) + coordiate);
@@ -131,13 +141,16 @@ public class checkerboard {
                 }
             }
         }
+        // reverses the order of the help array to make it more readable for black side
         if (blackTurn)
             Collections.reverse(possibleMoves);
         return possibleMoves;
     }
 
-    private static ArrayList<String> availableMoves(int x0, int y0) {
+    // all possible steps (move by one square) from initial coordinates
+    private static ArrayList<String> availableSteps(int x0, int y0) {
         ArrayList<String> availableMoves = new ArrayList<>();
+        // if is black turn and initial square is black piece
         if (blackTurn && ("BLACK".equals(board[x0][y0]) || "BKING".equals(board[x0][y0]))) {
             // checks the left side move
             if (x0 < 7 && y0 > 0 && board[x0 + 1][y0 - 1] == null)
@@ -147,8 +160,10 @@ public class checkerboard {
                 availableMoves.add(Integer.toString(x0 + 1) + Integer.toString(y0 + 1));
             // if piece if a king then check backwards moves
             if ("BKING".equals(board[x0][y0])) {
+                // check left side
                 if (x0 > 0 && y0 > 0 && board[x0 - 1][y0 - 1] == null)
                     availableMoves.add(Integer.toString(x0 - 1) + Integer.toString(y0 - 1));
+                // check right side
                 if (x0 > 0 && y0 < 7 && board[x0 - 1][y0 + 1] == null)
                     availableMoves.add(Integer.toString(x0 - 1) + Integer.toString(y0 + 1));
             }
@@ -167,6 +182,7 @@ public class checkerboard {
         return availableMoves;
     }
 
+    // all possible jumps (jump over opponent piece) from initial coordinates
     private static ArrayList<String> availableJumps(int x0, int y0) {
         ArrayList<String> availableJumps = new ArrayList<>();
         if (blackTurn) {
@@ -178,7 +194,6 @@ public class checkerboard {
                 if (x0 < 6 && y0 < 6 && ("WHITE".equals(board[x0 + 1][y0 + 1]) || "WKING".equals(board[x0 + 1][y0 + 1]))
                         && board[x0 + 2][y0 + 2] == null)
                     availableJumps.add(Integer.toString(x0 + 2) + Integer.toString(y0 + 2));
-
             }
             if ("BKING".equals(board[x0][y0])) {
                 if (x0 > 1 && y0 > 1 && ("WHITE".equals(board[x0 - 1][y0 - 1]) || "WKING".equals(board[x0 - 1][y0 - 1]))
@@ -197,6 +212,7 @@ public class checkerboard {
                 if (x0 > 1 && y0 < 6 && ("BLACK".equals(board[x0 - 1][y0 + 1]) || "BKING".equals(board[x0 - 1][y0 + 1]))
                         && board[x0 - 2][y0 + 2] == null)
                     availableJumps.add(Integer.toString(x0 - 2) + Integer.toString(y0 + 2));
+                System.out.println(x0 - 2);
             }
             if ("WKING".equals(board[x0][y0])) {
                 if (x0 < 6 && y0 > 1 && ("BLACK".equals(board[x0 + 1][y0 - 1]) || "BKING".equals(board[x0 + 1][y0 - 1]))
@@ -293,7 +309,7 @@ public class checkerboard {
                         System.out.println(Arrays.toString(requiredJumps.toArray()));
                         return false;
                     }
-                    ArrayList<String> availableMoves = availableMoves(x0, y0);
+                    ArrayList<String> availableMoves = availableSteps(x0, y0);
                     if (availableMoves.contains(Integer.toString(xf) + Integer.toString(yf))) {
                         board[xf][yf] = board[x0][y0];
                         board[x0][y0] = null;
