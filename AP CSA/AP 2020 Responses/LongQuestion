@@ -1,0 +1,46 @@
+//CBID: 0Z13V671
+//Initials: JH
+// part a
+public boolean couponApplies() {
+    if (totalPrices() < 40) return false;
+    for (MenuItem item : check) {
+        if (item.isDailySpecial()) return false;
+    }
+    return true;
+}
+
+//part b
+public double calculateCheck() {
+    double calculated = totalPrices();
+    int customerCount = 0;
+
+    if (couponApplies()) {
+        calculated = totalPrices * 0.75;
+    }
+
+    for (MenuItem item : check) {
+        if (item.isEntree()) {
+            customerCount ++;
+        }
+    }
+
+    if (customerCount >= 6) {
+        calculated += totalPrices() * 0.2;
+    }
+
+    return calculated;
+}
+
+// part c
+/*
+Method Header: 
+public boolean hasPremiumEntrees() {
+}
+
+In the MenuItem class, there will need an isPremiumEntree method, which returns true if the item is a premium entree and false otherwise. This method is public and returns a boolean.
+
+Then, in the CustomerCheck class, there will be the hasPremiumEntrees method. This method will have a for-each loop looping over every item in the check ArrayList, for every item on the check ArrayList, the program will call the isPremiumEntree method for that item. If isPremiumEntree is true for that item, hasPremiumEntrees immediately returns true and ends the method call. After the loop is executed, the hasPremiumEntrees method will return false since no item on the check was a premium entree. 
+
+The hasPremiumEntrees method does not need instance variables and can be called to manipulate the final calculated check.
+
+*/

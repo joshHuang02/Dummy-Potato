@@ -1,0 +1,21 @@
+//part a
+public static int calculateBonous(int goal, int numDays) {
+    int bonous = 0;
+
+    for (int i = 1; i <= numDays; i ++) {
+        // in case getSales() is random, the daily sales will not change
+        int sales = getSales();
+        if (sales >= goal) {
+            bonous += 75;
+        } else if (sales >= (goal * 0.8)) {
+            bonous += 50;
+        }
+    }
+    return bonous;
+}
+
+//part b
+/*
+There will be a new private final int instance variable in the SalesSimulator class called goal. This variable is initialized by the constructor for SalesSimulator, which is not shown. The SalesSimulator will need a new parameter int dailyGoal. The instance variable goals gets the value of dailyGoal in the constructor. Also, the calculateBonous method will remove int goal from its parameter. Nothing else needs to be changed.
+
+*/
