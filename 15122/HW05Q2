@@ -1,0 +1,37 @@
+struct image_header {
+  int width;
+  int height;
+  pixel_t[] data;
+};
+typedef struct image_header image;
+typedef image* image_t;
+//And the following data structure invariant:
+bool is_image(image* img) {
+  return img != NULL
+  && img->width > 0
+  && img->height > 0
+  && img->width <= int_max() / img->height
+  && is_arr_expected_length(img->data, img->width * img->height);
+}
+
+pixet_t image_setpixel(image* img, int row, int col, pixel_t q) 
+//@requires is_image(img);
+/*@requires is_valid_pixel( row, col, image_getwidth(img), 
+            image_getheight(img)); @*/
+//@ensures pixel_equal(image_getpixel(img, row, col), q);
+//@ensures is_image(img);
+{
+  int index = get_index(row, col, img->width, img->height);
+  pixel_t original = img->data[index];
+  img->data[index] = q;
+  return original;
+}
+
+int image_getheight(image* img)
+//@requires is_image(img);
+//@requires img->height <= int_max() / img->width;
+//@ensures 0 <= \result && \result <= int_max();
+//@ensures \result == img->height;
+{
+  return img->height;
+}

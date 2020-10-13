@@ -1,0 +1,28 @@
+#use <conio>
+int main() {
+  int* w = alloc(int);
+  int i = 42;
+  int* p = alloc(int);
+  int* q = p;
+  int* r = alloc(int);
+  int** x = alloc(int*);
+  int** y = x;
+  int** z = alloc(int*);
+  *r = i + 7;
+  *x = q;
+  **y = *r - i;
+  p = NULL;
+  *z = r;
+  i = *q + **x + *w;
+
+  printf("w: %d\n", *w);
+  printf("i: %d\n", i);
+  // printf("p: %d\n", *p);
+  printf("q: %d\n", *q);
+  printf("r: %d\n", *r);
+  printf("x: %d\n", **x);
+  printf("y: %d\n", **y);
+  printf("z: %d\n", **z);
+  flush();
+  return 0;
+}

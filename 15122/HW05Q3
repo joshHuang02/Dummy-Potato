@@ -1,0 +1,34 @@
+pixel_t queue_back(queue_t Q)
+//@requires Q != NULL;
+//@requires !queue_empty(Q);
+{
+  queue_t copy = queue_new();
+  //I wasn't sure if we are allowed to just declare "pixel_t back;"
+  pixel_t back = deq(Q); 
+  enq(copy, back);
+  while (!queue_empty(Q)) {
+    back = deq(Q);
+    enq(copy, back);
+  }
+  while (!queue_empty(copy)) {
+    enq(Q, deq(copy));
+  }
+  return back;
+}
+
+stack_t stack_reverse(stack_t S)
+//@requires S != NULL;
+//@ensures \result != NULL;
+{
+  stack_t RES = stack_new();
+  stack_t TMP = stack_new();
+  while (!stack_empty(S)) {
+    pixel_t x = pop(S);
+    push(TMP, x);
+    push(RES, x);
+  }
+  while (!stack_empty(TMP)) {
+    push(S, pop(TMP));
+  }
+  return RES;
+}
