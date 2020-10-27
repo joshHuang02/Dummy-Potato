@@ -1,0 +1,15 @@
+typedef tree_node_header tree;
+struct tree_node_header {
+    tree* right;
+    tree* left;
+    string data;
+};
+
+// Data Structure Invariant (minimal)
+bool is_tree(tree* T) {
+    // Code for Empty tree
+    if (T == NULL) return true
+
+    // Code for non-empty tree
+    return T->data != NULL && is_tree(T->left) && is_tree(T->right);
+}
