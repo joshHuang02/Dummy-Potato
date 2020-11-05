@@ -1,0 +1,53 @@
+#use <string>
+
+// LCG hash of strings
+int lcg_hash_string(string s) {
+  int len = string_length(s);
+  int h = 0;
+  for (int i = 0; i < len; i++) {
+    h = h + char_ord(string_charat(s, i));
+    h = 1664525 * h + 1013904223;
+  }
+  return h;
+}
+
+// Makes a string* out of a string
+string* make_key(string s)
+//@ensures \result != NULL;
+{
+  string* S = alloc(string);
+  *S = s;
+  return S;
+}
+
+// What the client wants to store in the dictionary
+struct inventory_item {
+  string fruit;         // key
+  int    quantity;
+};
+
+/******* Fulfilling the interface to the library *******/
+// typedef struct inventory_item* entry;                     // REMOVED
+// typedef string key;                                       // REMOVED
+
+key entry_key(entry e)
+//@requires e != NULL && \hastag(struct inventory_item*, e);
+//@ensures \result != NULL && \hastag(string*, \result);     // NEW!
+{
+  struct inventory_item* E = (struct inventory_item*)e;      // CAST TO CORRECT TYPE
+  string* K = make_key(E->fruit);                            // ALLOCATE KEY
+  return (key)K;
+}
+
+bool key_equiv(key k1, key k2)
+//@requires k1 != NULL && \hastag(string*, k1);              // NEW!
+//@requires k2 != NULL && \hastag(string*, k2);              // NEW!
+{
+  return string_equal(*(string*)k1, *(string*)k2);           // CAST AND DEREFERENCE
+}
+
+int key_hash(key k)
+//@requires k != NULL && \hastag(string*, k);                 // NEW!
+{
+  return lcg_hash_string(*(string*)k);                        // CAST AND DEREFERENCE
+}

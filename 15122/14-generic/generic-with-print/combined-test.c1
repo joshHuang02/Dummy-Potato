@@ -1,0 +1,58 @@
+#use <conio>
+
+struct inventory_item* make_inventory_item(string fruit, int quantity) {
+  struct inventory_item* x = alloc(struct inventory_item);
+  x->fruit = fruit;
+  x->quantity = quantity;
+  return x;
+}
+
+int main() {
+  // Using the hash dictionary to store word counts
+
+  // Get list of (possibly duplicate) words from file
+  bundle_t words = read_words("texts/vocab_t_z.txt");
+  int len = string_bundle_length(words);
+  string[] word_list = string_bundle_array(words);
+
+  // Store (word, count) entries in dictionary
+  hdict_t H = hdict_new(len/2, &entry_key_wcount,
+                               &key_hash_wcount,
+                               &key_equiv_wcount,
+                               &key_print_wcount,
+                               &entry_print_wcount);
+
+  for (int i = 0 ; i < len ; i++)
+    //@loop_invariant 0 <= i;
+    {
+      struct wcount* wc = alloc(struct wcount);
+      wc->word = word_list[i];
+      hdict_insert(H, (entry)wc);
+    }
+  hdict_print(H);
+
+  println("All word count tests passed!\n");
+
+
+  // Using the hash dictionary to store produce
+  struct inventory_item* A = make_inventory_item("apple",   20);
+  struct inventory_item* B = make_inventory_item("banana",  10);
+  struct inventory_item* C = make_inventory_item("pumpkin", 50);
+  struct inventory_item* D = make_inventory_item("banana",  20);
+
+  hdict_t H_produce = hdict_new(10, &entry_key_produce,
+                                    &key_hash_produce,
+                                    &key_equiv_produce,
+                                    &key_print_produce,
+                                    &entry_print_produce);
+  hdict_insert(H_produce, (entry)A);
+  hdict_insert(H_produce, (entry)B);
+  hdict_insert(H_produce, (entry)C);
+  assert(hdict_lookup(H_produce, (key)make_key("apple")) != NULL);
+  assert(hdict_lookup(H_produce, (key)make_key("lime")) == NULL);
+  hdict_insert(H_produce, (entry)D);
+  hdict_print(H_produce);
+
+  println("All produce tests passed!");
+  return 0;
+}

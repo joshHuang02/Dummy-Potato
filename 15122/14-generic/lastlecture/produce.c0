@@ -1,0 +1,43 @@
+#use <string>
+
+// LCG hash of strings
+int lcg_hash_string(string s) {
+  int len = string_length(s);
+  int h = 0;
+  for (int i = 0; i < len; i++) {
+    h = h + char_ord(string_charat(s, i));
+    h = 1664525 * h + 1013904223;
+  }
+  return h;
+}
+
+// Makes a string* out of a string   // ADDED FOR CONVENIENCE
+string* make_key(string s) {
+  string* S = alloc(string);
+  *S = s;
+  return S;
+}
+
+// What the client wants to store in the dictionary
+struct inventory_item {
+  string fruit;         // key
+  int    quantity;
+};
+
+/******* Fulfilling the interface to the library *******/
+typedef struct inventory_item* entry;
+typedef string key;
+
+key entry_key(entry e)
+//@requires e != NULL;
+{
+  return e->fruit;
+}
+
+bool key_equiv(key k1, key k2) {
+  return string_equal(k1, k2);
+}
+
+int key_hash(key k) {
+  return lcg_hash_string(k);
+}
