@@ -1,0 +1,24 @@
+struct inventory_item* make_inventory_item(string fruit, int quantity) {
+  struct inventory_item* x = alloc(struct inventory_item);
+  x->fruit = fruit;
+  x->quantity = quantity;
+  return x;
+}
+
+int main () {
+  struct inventory_item* A = make_inventory_item("apple",   20);
+  struct inventory_item* B = make_inventory_item("banana",  10);
+  struct inventory_item* C = make_inventory_item("pumpkin", 50);
+  struct inventory_item* D = make_inventory_item("banana",  20);
+
+  hdict_t H = hdict_new(10);
+  hdict_insert(H, A);
+  hdict_insert(H, B);
+  hdict_insert(H, C);
+  assert(hdict_lookup(H, "apple") != NULL);
+  assert(hdict_lookup(H, "lime") == NULL);
+  hdict_insert(H, D);
+
+  println("All produce tests passed!");
+  return 0;
+}
