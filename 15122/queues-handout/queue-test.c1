@@ -1,0 +1,20 @@
+/**************************************************************************/
+/*              COPYRIGHT Carnegie Mellon University 2020                 */
+/* Do not post this file or any derivative on a public site or repository */
+/**************************************************************************/
+
+
+#use <conio>
+
+// You are welcome to define helper functions for your tests
+
+int main() {
+  // Create a few queues
+
+  // Using them, test the functions you wrote in file queue.c1
+
+
+
+  println("All tests passed!");
+  return 0;
+}
