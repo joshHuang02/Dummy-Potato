@@ -38,13 +38,27 @@ struct queue_header {
 };
 
 bool is_inclusive_segment(list* start, list* end, int i) {
-  /* FIX ME */
-  return true;
-}
+  if (i == 1 && start == end) 
+    return true;
+    
+  if (i < 1 || start->next == NULL)
+    return false;
+
+  return is_inclusive_segment(start->next, end, i - 1);
+  }
 
 bool is_queue(queue* Q) {
-  /* FIX ME */
-  return Q != NULL;
+  if (Q->front == NULL) {
+    return true;
+
+  } else if (Q->front == Q->back) {
+    if (Q->back != NULL && Q->back->next == NULL)
+      return true;
+    return false;
+
+  } else {
+    return is_inclusive_segment(Q->start. Q->end, Q->size);
+  }
 }
 
 void print_queue(queue* Q, print_data_fn* print_data) {
@@ -53,7 +67,60 @@ void print_queue(queue* Q, print_data_fn* print_data) {
 }
 
 /* Other functions go there */
+// typedef ______* queue_t;  
+  
+queue* queue_new() /* O(1) */  
+/*@ensures \result != NULL; @*/ ;
+{
+  queue* Q = alloc(Q);
+  Q->front = NULL;
+  Q->back = NULL;
+  Q->size = 0;
+}
+  
+int queue_size(queue* Q) /* O(1) */  
+/*@requires Q != NULL; @*/ 
+/*@requires is_queue(Q);
+/*@ensures \result >= 0; @*/ ; 
+{
+  return Q->size;
+}
+  
+/* adds an item to the back of the queue */  
+void enq(queue* Q, void* x) /* O(1) */  
+/*@requires Q != NULL; @*/ ;
+{
+  list* L = alloc(list);
+  L->data = x;
+  Q->back->next = L;
+  Q->back = Q->back->next;
+  Q->size += 1;
+}
+  
+/* removes an item from the front of the queue */  
+void* deq(queue* Q) /* O(1) */  
+/*@requires Q != NULL && queue_size(Q) > 0; @*/ ;
+{
+  Q->start = Q->start->next;
+  Q->size -= 1;
+}
 
+/* doesn't remove the item from the queue */  
+void* queue_peek(queue* Q, int i)                       /* O(i) */  
+/*@requires Q != NULL && 0 <= i && i < queue_size(Q); @*/ ; 
+/*@ensures is_queue(Q);
+{
+  // new lsit node in memory to avoid modifying Q
+  list* node = Q->start;
+  for (int j = 0; j <= i; j ++) {
+    if (j == i) return node->data;
+    node = node->next;
+  }
+  return NULL;
+}
+  
+void queue_reverse(queue* Q)                            /* O(n) */  
+  /*@requires Q != NULL; @*/ ;  
 
 // Client type
 typedef queue* queue_t;
