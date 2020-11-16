@@ -7,10 +7,26 @@
 #use <conio>
 
 // You are welcome to define helper functions for your tests
-
+void print_data(void* x) {
+  string* s = alloc(string);
+  *s = (string*)x;
+  printf("%s |", *s);
+}
 int main() {
   // Create a few queues
+  string a = "a";
+  string b = "b";
+  string c = "c";
+  string* as = alloc(string);
+  string* bs = alloc(string);
+  string* cs = alloc(string);
 
+  queue_t Q = queue_new();
+  enq(Q, (void*)as);
+  enq(Q, (void*)bs);
+  enq(Q, (void*)cs);
+
+  print_queue(Q, &print_data);
   // Using them, test the functions you wrote in file queue.c1
 
 

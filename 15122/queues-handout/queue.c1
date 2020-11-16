@@ -63,6 +63,12 @@ bool is_queue(queue* Q) {
 
 void print_queue(queue* Q, print_data_fn* print_data) {
   /* OPTIONAL (but recommended) */
+  list* node = Q->start;
+  while (node != Q->end) {
+    (*print_data)(node->data);
+  }
+  (*print_data)(node->data);
+  println("");
   return;
 }
 
@@ -80,7 +86,7 @@ queue* queue_new() /* O(1) */
   
 int queue_size(queue* Q) /* O(1) */  
 /*@requires Q != NULL; @*/ 
-/*@requires is_queue(Q);
+//@requires is_queue(Q);
 /*@ensures \result >= 0; @*/ ; 
 {
   return Q->size;
@@ -106,9 +112,9 @@ void* deq(queue* Q) /* O(1) */
 }
 
 /* doesn't remove the item from the queue */  
-void* queue_peek(queue* Q, int i)                       /* O(i) */  
+void* queue_peek(queue* Q, int i) /* O(i) */  
 /*@requires Q != NULL && 0 <= i && i < queue_size(Q); @*/ ; 
-/*@ensures is_queue(Q);
+//@ensures is_queue(Q);
 {
   // new lsit node in memory to avoid modifying Q
   list* node = Q->start;
@@ -120,7 +126,14 @@ void* queue_peek(queue* Q, int i)                       /* O(i) */
 }
   
 void queue_reverse(queue* Q)                            /* O(n) */  
-  /*@requires Q != NULL; @*/ ;  
+/*@requires Q != NULL; @*/ ;  
+//@requires is_queue(Q);
+{
+  for (int i = Q->size; i < Q->size / 2; i ++) {
+    string s = *(string*)Q->end->data;
+    
+  }
+}
 
 // Client type
 typedef queue* queue_t;
