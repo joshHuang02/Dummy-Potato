@@ -1,0 +1,146 @@
+/**************************************************************************/
+/*              COPYRIGHT Carnegie Mellon University 2020                 */
+/* Do not post this file or any derivative on a public site or repository */
+/**************************************************************************/
+
+
+/*
+ * Peg solitaire solver
+ *
+ * 15-122 Principles of Imperative Computation */
+
+#use <conio>
+#use <util>
+// typedef struct move_header move_t;
+typedef struct move_header* move;
+struct move_header {
+  int from;
+  int to;
+  int jumped;
+};
+
+move new_move(int from_row, int from_col, int to_row, int to_col)
+/*@requires  0 <= from_row && from_row <= 7
+          && 0 <= from_col && from_col <= 7
+          && 0 <= to_row && to_row <= 7
+          && 0 <= to_col && to_col <= 7; @*/
+/*@requires (abs(from_row - to_row) == 2 && from_col == to_col)
+         || abs(from_col - to_col) == 2 && from_row == to_row; @*/
+//@ensures \result != NULL;
+//@ensures 0 <= \result->from && 0 <= \result->to && 0 <= \result->jumped;
+//@ensures \result->jumped == (\result->from + \result->to) / 2;
+{
+  move m = alloc(struct move_header);
+  m->from = from_row * 8 + from_col;
+  m->to = to_row * 8 + to_col;
+  m->jumped = (m->from + m->to) / 2;
+  return m;
+}
+
+int row_start(move m)
+//@requires m != NULL;
+{
+  return m->from / 8;
+}
+int col_start(move m)
+//@requires m != NULL;
+{
+  return m->from % 8;
+}
+int row_end(move m)
+//@requires m != NULL;
+{
+  return m->to / 8;
+}
+int col_end(move m) 
+//@requires m != NULL;
+{
+  return m->to % 8;
+}
+
+void make_move(board B, move m)
+//@requires is_board(B);
+//@requires 1 < num_pegs(B);
+//@requires B[m->from] == 1;
+//@requires B[m->jumped] == 1;
+//@requires B[m->to] == 0;
+//@ensures is_board(B);
+{
+  int preCount = num_pegs(B);
+  B[m->to] = 1;
+  B[m->from] = 0;
+  B[m->jumped] = 0;
+  //@assert num_pegs(B) == preCount - 1;
+}
+
+void undo_move(board B, move m)
+//@requires is_board(B);
+//@requires B[m->from] == 0;
+//@requires B[m->jumped] == 0;
+//@requires B[m->to] == 1;
+//@ensures is_board(B);
+//@ensures 1 < num_pegs(B);
+{
+  int preCount = num_pegs(B);
+  B[m->to] = 0;
+  B[m->from] = 1;
+  B[m->jumped] = 1;
+  //@assert num_pegs(B) == preCount + 1;
+}
+
+bool is_move(board B, move m) 
+//@requires is_board(B);
+{
+  int from_row = row_start(m);
+  int from_col = col_start(m);
+  int to_row = row_end(m);
+  int to_col = col_end(m);
+  if (from_row < 0 || from_col < 0 || to_row < 0 || to_col < 0)
+    return false;
+  if (!( (abs(from_row - to_row) == 2 && from_col == to_col)
+        || (abs(from_col - to_col) == 2 && from_row == to_row)))
+    return false;
+
+  return B[m->from] == 1
+      && B[m->jumped] == 1
+      && B[m->to] == 0;
+}
+
+stack_t all_moves(board B)
+//@requires is_board(B);
+{
+  stack_t S = stack_new();
+  for (int i = 0; i < 64; i ++) {
+    if (B[i] == 1) {
+      int row = i / 8;
+      int col = i % 8;
+      // up
+      if (0 <= row - 2) {
+        move m3 = new_move(row, col, row - 2, col);
+        if (is_move(B, m3)) push(S, (void*)m3);
+      }
+      // right
+      if (col + 2 <= 7) {
+        move m2 = new_move(row, col, row, col + 2);
+        if (is_move(B, m2)) push(S, (void*)m2);
+      }
+      // left
+      if (0 <= col -2) {
+        move m4 = new_move(row, col, row, col - 2);
+        if (is_move(B, m4)) push(S, (void*)m4);
+      }
+      // down
+      if (row + 2 <= 7) {
+        move m1 = new_move(row, col, row + 2, col);
+        if (is_move(B, m1)) push(S, (void*)m1);
+      }
+    }
+  }
+  return S;
+}
+
+// void printE(stackelem x) {
+//   move m = (move)x;
+//   printf("%d : %d -> %d : %d", row_start(m), col_start(m), 
+//           row_end(m), col_end(m));
+// }

@@ -1,0 +1,48 @@
+/**************************************************************************/
+/*              COPYRIGHT Carnegie Mellon University 2020                 */
+/* Do not post this file or any derivative on a public site or repository */
+/**************************************************************************/
+
+
+#use <conio>
+
+// factorial.c0 - prints 0! through 9!
+// Name: Josh Huang
+// Andrew ID:junzheh
+// Section: Q
+
+/* You don't need to edit anything below this line */
+
+int fact_spec(int n)
+//@requires n >= 0;
+{
+  if (n == 0) return 1;
+  else return n * fact_spec(n-1);
+}
+
+int factorial(int n)
+//@requires n >= 0;
+//@ensures \result == fact_spec(n);
+{
+  int total = 1;
+  int count = 0;
+  while (count < n) 
+    //@loop_invariant 0 <= count && count <= n;
+    //@loop_invariant total == fact_spec(count);
+    {
+      count = count + 1;
+      total = total * count;
+    }
+  return total;
+}
+
+int main()
+{
+  for (int i = 0; i < 10; i++)
+    {
+      printint(factorial(i));
+      print("\n");
+    }
+  print("Returning from main\n");
+  return 0;
+}

@@ -1,0 +1,95 @@
+/**************************************************************************/
+/*              COPYRIGHT Carnegie Mellon University 2020                 */
+/* Do not post this file or any derivative on a public site or repository */
+/**************************************************************************/
+
+
+#use <conio>
+#use <parse>
+
+// You are welcome to define helper functions for your tests
+
+int main() {
+  // Create a few texts and dictionaries by hand
+  bundle_t smolDict = read_words("texts/small-dict.txt");
+  string[] smolDictArr = string_bundle_array(smolDict);
+
+  bundle_t sloth = read_words("texts/sloth.txt");
+  string[] slothArr = string_bundle_array(sloth);
+
+  // Later on, read some texts and dictionaries from file
+
+
+  // Using them, test the functions check_word and check_text_better
+  // you wrote in file speller.c0
+
+  // check_word
+  println("Check Word:");
+  assert(check_word(smolDictArr, string_bundle_length(smolDict), "tweewaa") == false);
+  assert(check_word(smolDictArr, string_bundle_length(smolDict), "energy") == true);
+
+  // check_text_naive
+  println("Naive Text:");
+  string[] miss = alloc_array(string, string_bundle_length(sloth));
+  assert(check_text_naive(smolDictArr, string_bundle_length(smolDict), slothArr, string_bundle_length(sloth), miss) == 3);
+  for (int i = 0; i < string_bundle_length(sloth); i ++) {
+    print(miss[i]);
+    print(" ");
+    flush();
+  }
+
+  // check_sorted_text
+  println("\n\nSorted Text:");
+  string[] dTemp = parse_tokens("a b c d e f g h i j");
+  string[] tTemp = parse_tokens("a aa bbb bbbb bbbbb c dd ee f i k m");
+  string[] miss2 = alloc_array(string, 50);
+  printint(check_sorted_text(dTemp, 10, tTemp, 12, miss2));
+  println("yeet");
+  flush();
+  // assert(check_sorted_text(dTemp, 4, tTemp, 4, miss2) == 1);
+  for (int i = 0; i < 50; i ++) {
+    print(miss2[i]);
+    print(" ");
+    flush();
+  }
+
+  // merge
+  println("\n\nMerge:");
+  string[] a = parse_tokens("a b");
+  printint(merge(a, 0, 1, 1, 2));
+  for (int i = 0; i < 2; i ++) {
+    print(a[i]);
+    print(" ");
+    flush();
+  }  
+  print("\n");
+  string[] a1 = parse_tokens("a b c d a b cc d ee");
+  printint(merge(a1, 0, 4, 4, 9));
+  for (int i = 0; i < 6; i ++) {
+    print(a1[i]);
+    print(" ");
+    flush();
+  }
+
+  // mergesort
+  println("\n\nMergesort:");
+  string[] b = parse_tokens("a b c d e a b c e g h");
+  printint(mergesort(b, 0, 11));
+  for (int i = 0; i < 11; i ++) {
+    print(b[i]);
+    print(" ");
+    flush();
+  }
+  println("\n\nThis is a test");
+  string[] text1 = parse_tokens("this is a test");
+  printint(mergesort(text1, 0, 4));
+  for (int i = 0; i < 4; i ++) {
+    print(text1[i]);
+    print(" ");
+    flush();
+  }
+
+
+  println("\nAll tests passed!");
+  return 0;
+}

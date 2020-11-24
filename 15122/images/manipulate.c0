@@ -1,0 +1,39 @@
+int result_width(int width, int height)
+//@requires is_valid_imagesize(width, height);
+//@ensures 0 <= \result;
+//@ensures is_valid_imagesize(\result, height);
+{
+  return width * 4;
+}
+int result_height(int width, int height)
+//@requires is_valid_imagesize(width, height);
+//@ensures 0 <= \result;
+//@ensures is_valid_imagesize(width, \result);
+{
+  return height * 2;
+}
+pixel_t[] manipulate(pixel_t[] pixels, int width, int height)
+//@requires is_valid_imagesize(width, height);
+//@requires is_valid_imagesize(4 * width, 2 * height);
+/*@ensures \length(\result) == result_height(width, height) 
+    * result_width(width, height);@*/
+{
+  pixel_t[] out = alloc_array(pixel_t, 2 * width * height);
+  // j refers to row number
+  for (int j = 0; j < height; j++)
+  //@loop_invariant 0 <= j;
+  {
+    // i refers to column number
+    for (int i = 0; i < width; i ++)
+    //@loop_invariant 0 <= i;
+    //@loop_invariant i <= result_width(width, height);
+    {
+      int index = get_index(j, i, width, height);
+      out[2 * index] = pixels[index];
+      out[2 * index + 1] = pixels[index];
+    }
+  }
+  out = reflect(out, 2 * width, height);
+
+  return out;
+}

@@ -1,0 +1,73 @@
+#use <conio>
+
+void run_testcase(int[] A, int a, int[] B, int b, int[] expected, int e)
+//@requires 0 <= a && a <= \length(A);
+//@requires 0 <= b && b <= \length(B);
+//@requires 0 <= e && e <= \length(expected);
+{
+    int size = a < b ? a : b; //Fill me in!
+    int[] intersection = alloc_array(int, size);
+    int len = intersect(A, a, B, b, intersection);
+
+    // Assert that result is correct
+    assert(e==len);
+}
+
+
+void duplicates() {
+    int[] A = int_array_from_string("1 1 1 1 1");
+    int[] B = int_array_from_string("1 1 1 1 1");
+    int[] E = int_array_from_string("1");
+    run_testcase(A, 5, B, 5, E, 1);
+
+    A = int_array_from_string("1 1 1 1 3");
+    B = int_array_from_string("1 2 2 1 3");
+    E = int_array_from_string("1 3");
+    run_testcase(A, 5, B, 5, E, 2);
+}
+
+void noIntersect(){
+  int[] A = int_array_from_string("1 1 1 1 1");
+  int[] B = int_array_from_string("2 2 2 2 2");
+  int[] E = int_array_from_string("");
+  run_testcase(A, 5, B, 5, E, 0);
+}
+
+void intersectZero() {
+  int[] A = int_array_from_string("0 1 1 1 1");
+  int[] B = int_array_from_string("2 2 2 0 0");
+  int[] E = int_array_from_string("0");
+  run_testcase(A, 5, B, 5, E, 1);
+}
+
+void testNegative() {
+  int[] A = int_array_from_string("-1 -2");
+  int[] B = int_array_from_string("-1 -2");
+  int[] E = int_array_from_string("-1 -2");
+  run_testcase(A, 5, B, 5, E, 2);
+}
+
+void testNull() {
+  int[] A = int_array_from_string("");
+  int[] B = int_array_from_string("");
+  int[] E = int_array_from_string("");
+  run_testcase(A, 5, B, 5, E, 0);
+}
+
+void general() {
+  int[] A = int_array_from_string("1 2 4 4 7");
+  int[] B = int_array_from_string("1 2 4 4 5 6");
+  int[] E = int_array_from_string("1 2 4");
+  run_testcase(A, 5, B, 5, E, 3);
+}
+
+void run_tests() {
+    // Remember - this function should call run testcase a bunch of times!
+    duplicates();
+    noIntersect();
+    intersectZero();
+    testNegative();
+    testNull();
+}
+
+

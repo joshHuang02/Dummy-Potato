@@ -1,0 +1,119 @@
+#use <parse>
+
+int testIsIn() {
+  // Here's an example
+  // Remember that parse ints takes a list of integers separated by spaces
+  //   as well as a base (here, 10) in which to interpret the integers
+  sortedlist* A = array_to_linkedlist(parse_ints("-2 6 12", 10), 3);
+  sortedlist* B = array_to_linkedlist(parse_ints("-2 0 6 12", 10), 3);
+
+  /* Test 1 */
+  if (!is_in(A, 6)) {
+      println("Failed Test 1 for is_in");
+      assert(false);
+  }
+  // int_max
+  if (is_in(A, int_max())) {
+    println("Failed int max test for is_in");
+    assert(false);
+  }
+
+  if (!is_in(B, 0)) {
+      println("Failed Test zero for is_in");
+      assert(false);
+  }
+
+  if (!is_in(A, 12)) {
+      println("Failed Test end for is_in");
+      assert(false);
+  }
+
+  return 0;
+}
+
+int testInsert() {
+
+  // Here's an example
+  sortedlist* A = array_to_linkedlist(parse_ints("", 10), 0);
+  sortedlist* B = array_to_linkedlist(parse_ints("0 1 4 5 6", 10), 5);
+
+  /* Test 1 */
+  insert(A, 5);
+  if(!is_in(A, 5)) {
+      println("Failed Test 1 for insert");
+      // assert(false);
+  }
+
+  if (!is_in(B, 12)) {
+      println("Failed Test end for insert");
+      // assert(false);
+  }
+
+  // test add before
+  insert(B, -2);
+  if(!is_in(A, -2)) {
+      println("Failed Test add before for insert");
+      // assert(false);
+  }
+
+  // test add after
+  insert(B, int_max());
+  if(!is_in(A, int_max())) {
+      println("Failed Test add after for insert");
+      // assert(false);
+  }
+
+  if (!arr_eq(parse_ints("-2 0 1 4 5 6 2147483647", 10), linkedlist_to_array(B), 7)) {
+    println("Failed general insert test");
+    // assert(false);
+  }
+
+  return 0;
+}
+
+
+int testDelete() {
+  // Here's an example
+  // sortedlist* A = array_to_linkedlist(parse_ints("-2 6 12", 10), 3);
+
+  // /* Test 1 */
+  // delete(A, 12);
+  // printint(list_length(A));
+  // flush();
+  // assert(list_length(A) == 2);
+  // if (is_in(A, 12)) {
+  //     println("Failed Test 1 for delete");
+  //     assert(false);
+  // }
+
+  // delete(A, -2);
+  // printint(list_length(A));
+  // flush();
+  // assert(list_length(A) == 1);
+  // // assert(is_segment(A));
+  // assert(no_circularity(A));
+  // assert(is_sortedlist(A));
+
+  // delete(A, -2);
+  // assert(list_length(A) == 0);
+
+  sortedlist* A = array_to_linkedlist(parse_ints("1 2 3 4", 10), 4);
+  assert(is_in(A, 1));
+  printint(list_length(A));
+  delete(A, 1);
+  printint(list_length(A));
+  flush();
+  println("YEET");
+  assert(is_in(A, 1));
+
+  /* TODO : Add more tests for delete here! */
+  return 0;
+}
+
+
+int main() {
+  // testIsIn();
+  // testInsert();
+  testDelete();
+  return 0;
+}

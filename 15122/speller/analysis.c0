@@ -1,0 +1,58 @@
+int main(string filename, string text) {
+  bundle_t dict = read_words(filename);
+  bundle_t words = read_words(text);
+
+  string[] dictArr = string_bundle_array(dict);
+  string[] wordsArr = string_bundle_array(words);
+
+  int dictLen = string_bundle_length(dict);
+  int wordsLen = string_bundle_length(words);
+
+  string[] miss = alloc_array(string, wordsLen);
+
+  int misspelled=check_text_better(dictArr, dictLen, wordsArr, wordsLen, miss);
+
+  int len8 = 0;
+  string[] len15 = alloc_array(string, 4);
+  int len15Index = 0;
+  for (int i = 0; i < wordsLen; i ++) {
+    bundle_t word = read_words(miss[i]);
+    if (string_bundle_length(word) == 8) {
+      len8 ++;
+    }
+    if (string_bundle_length(word) == 15) {
+      len15[len15Index] = miss[i];
+      len15Index ++;
+    }
+  }
+
+
+
+  print("There are ");
+  printint(misspelled);
+  print(" misspelled words in the text. \n");
+  print("There are ");
+  printint(len8);
+  print(" misspelled words of length 8 in the text. \n");
+  print("Here are the first 4 misspelled words of length 15 in the text:  \n");
+  print("1. ");
+  print(len15[0]);
+  print("\n");
+  print("2. ");
+  print(len15[1]);
+  print("\n");
+  print("3. ");
+  print(len15[2]);
+  print("\n");
+  print("4. ");
+  print(len15[3]);
+  print("\n");
+
+  print("The alphabetically-last misspelled word in the text is ");
+  print(miss[misspelled - 1]);
+  print("and appears ");
+  print(" times");
+
+
+  return 0;
+}

@@ -1,0 +1,20 @@
+/**************************************************************************/
+/*              COPYRIGHT Carnegie Mellon University 2020                 */
+/* Do not post this file or any derivative on a public site or repository */
+/**************************************************************************/
+
+
+/* Testing */
+
+#use <conio>
+
+int main() {
+  test_remove_green();
+
+  test_quantize();
+
+  test_summarize();
+
+  println("All tests passed!");
+  return 0;
+}

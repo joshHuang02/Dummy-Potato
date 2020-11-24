@@ -1,0 +1,63 @@
+/**************************************************************************/
+/*              COPYRIGHT Carnegie Mellon University 2020                 */
+/* Do not post this file or any derivative on a public site or repository */
+/**************************************************************************/
+
+
+#use <conio>
+#use <parse>
+
+// You are welcome to define helper functions for your tests
+
+int main() {
+  // Create a few texts and dictionaries by hand
+  string[] text1 = parse_tokens("this is a test");
+  string[] dict1 = parse_tokens("a is test");
+  string[] dict2 = parse_tokens("a is test this");
+  string[] text2 = parse_tokens("this is a jojo reference");
+  string[] dict3 = parse_tokens("a is jojo reference test this");
+
+  // Later on, read some texts and dictionaries from file
+  // bundle_t dict = read_words("texts/dict.txt");  
+  // bundle_t shakespeare = read_words("texts/shakespeare.txt");  
+  bundle_t sloth = read_words("texts/sloth.txt");  
+  bundle_t smallDict = read_words("texts/small-dict.txt");  
+
+  // string[] dictArr = string_bundle_array(dict);
+  // string[] shakespeareArr = string_bundle_array(shakespeare);
+  string[] slothArr = string_bundle_array(sloth);
+  string[] smallDictArr = string_bundle_array(smallDict);
+
+  // Using them, test the functions check_word and check_text_better
+  // you wrote in file speller.c0
+  println("\nCheck_word: \n");
+  assert(check_word(dict1, 3, "this") ==  false);
+  assert(check_word(dict2, 4, "how") ==  false);
+  assert(check_word(dict2, 4, "a") ==  true);
+
+  assert(check_word(dict3, 6, "a") ==  true);
+  assert(check_word(dict3, 6, "jojo") ==  true);
+  assert(check_word(dict3, 6, "giogio") ==  false);
+
+  println("\ncheck_text_better: \n");
+  string[] miss1 = alloc_array(string, 4);
+  assert(check_text_better(dict1, 3, text1, 4, miss1) == 1);
+  for (int i = 0; i < 4; i ++) {
+    print(miss1[i]);
+    print(" ");
+    flush();
+  }
+
+  // string[] miss2 = alloc_array(string, string_bundle_length(sloth));
+  // assert(check_text_better(smallDictArr, string_bundle_length(smallDict), 
+  // slothArr, string_bundle_length(sloth), miss2) == 3);
+  // for (int i = 0; i < string_bundle_length(sloth); i ++) {
+  //   print(miss2[i]);
+  //   print(" ");
+  //   flush();
+  // }
+
+
+  println("\nAll tests passed!");
+  return 0;
+}

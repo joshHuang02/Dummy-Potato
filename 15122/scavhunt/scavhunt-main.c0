@@ -1,0 +1,16 @@
+/**************************************************************************/
+/*              COPYRIGHT Carnegie Mellon University 2020                 */
+/* Do not post this file or any derivative on a public site or repository */
+/**************************************************************************/
+
+
+#use <conio>
+
+int main() 
+{
+  println(greet("OHI", "professor"));
+  println(greet(salute(0), "student"));
+  println(greet(salute(1), "you"));
+  println(greet(salute(2), "partner"));
+  return 0;
+}

@@ -1,0 +1,8 @@
+{
+	"files.associations": {
+		"stdlib.h": "c",
+		"array": "c",
+		"string": "c"
+	},
+	"cmake.configureOnOpen": false
+}

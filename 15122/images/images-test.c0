@@ -1,0 +1,121 @@
+/**************************************************************************/
+/*              COPYRIGHT Carnegie Mellon University 2020                 */
+/* Do not post this file or any derivative on a public site or repository */
+/**************************************************************************/
+
+
+#use <conio>
+#use <util>
+#use <img>
+
+
+
+int main() {
+
+    // Create a few small images manually -- here's an example
+    pixel_t[] A = alloc_array(pixel_t, 4); // A is a 2x2 image
+    int width_A  = 2;
+    int height_A = 2;
+    A[0] = make_pixel(255, 255, 0, 0);     // A[0] is a red pixel
+    A[1] = make_pixel(255, 0, 255, 0);     // A[1] is a green pixel
+    A[2] = make_pixel(255, 0, 0, 255);     // A[2] is a blue pixel
+    A[3] = make_pixel(255, 255, 255, 0);   // A[3] is a yellow pixel
+
+    pixel_t[] B = alloc_array(pixel_t, 9); // A is a 2x2 image
+    int width_B  = 3;
+    int height_B = 3;
+    B[0] = make_pixel(255, 255, 255, 255);
+    B[1] = make_pixel(255, 0, 0, 0);
+    B[2] = make_pixel(255, 0, 3, 255);
+    B[3] = make_pixel(255, 144, 255, 0);
+    B[4] = make_pixel(255, 144, 255, 0);
+    B[5] = make_pixel(255, 144, 255, 0);
+    B[6] = make_pixel(255, 144, 255, 0);
+    B[7] = make_pixel(255, 144, 255, 0);
+    B[8] = make_pixel(255, 144, 255, 0);
+
+    // Load some large images -- here's an example
+    image_t g5 = image_load("img/g5.png");
+    if (g5 == NULL) error("Could not load source image");
+    int width = image_width(g5);
+    int height = image_height(g5);
+    pixel_t[] inpixels = image_data(g5);
+    printf("Loaded image.  Dimensions are %d by %d.\n", width, height);
+
+
+    // Test the functions you implemented in imageutil.c0 on small and 
+    //large images
+    printf("test imageutil");
+    // Testing image A
+    assert(is_valid_imagesize(width_A, height_A));
+    assert(get_row(1, width_A, height_A) == 0);
+    assert(get_column(1, width_A, height_A) == 1);
+    assert(is_valid_pixel(1, 1, width_A, height_A));
+    assert(!is_valid_pixel(2, 1, width_A, height_A));
+    assert(get_index(1, 1, width_A, height_A) == 3);
+    image_print(A, width_A, height_A);
+
+    // Testing image B
+    assert(is_valid_imagesize(width_B, height_B));
+    assert(get_row(4, width_B, height_B) == 1);
+    assert(get_column(8, width_B, height_B) == 2);
+    assert(is_valid_pixel(2, 2, width_B, height_B));
+    assert(is_valid_pixel(0, 0, width_B, height_B));
+    assert(!is_valid_pixel(2, 3, width_B, height_B));
+    assert(get_index(1, 1, width_B, height_B) == 4);
+    image_print(B, width_B, height_B);
+
+    // Testing the large image
+    assert(is_valid_imagesize(width, height));
+    assert(is_valid_pixel(400, 400, width, height));
+    // next line prints 480000 rgb values
+    image_print(inpixels, width, height);
+
+    // Test reflect on your small images
+    printf("test reflect");
+    println("----------");
+    image_print(reflect(A, width_A, height_A), width_A * 2, height_A * 2);
+    println("----------");
+    image_print(reflect(B, width_B, height_B), width_B * 2, height_B * 2);
+
+        // test 1x3 and 3x1
+    A = alloc_array(pixel_t, 3);
+    A[0] = make_pixel(0x02, 0x00, 0xFF, 0xEE);
+    A[1] = make_pixel(0xFF, 0xFF, 0xFF, 0xFF);
+    A[2] = make_pixel(0x00, 0x00, 0x00, 0x00);
+    width_A = 1;
+    height_A = 3;
+    println("----------");
+    image_print(reflect(A, width_A, height_A), width_A * 2, height_A * 2);
+    width_A = 3;
+    height_A = 1;
+    println("----------");
+    image_print(reflect(A, width_A, height_A), width_A * 2, height_A * 2);
+
+    // Test blur on your small images
+    printf("test blur");
+    int[] mask1 = alloc_array(int, 9);
+    mask1[0] = 1;
+    mask1[1] = 2;
+    mask1[2] = 3;
+    mask1[3] = 4;
+    mask1[4] = 5;
+    mask1[5] = 4;
+    mask1[6] = 2;
+    mask1[7] = 5;
+    mask1[8] = 2;
+    image_print(blur(A, width_A, height_A, mask1, 3), width_A, height_A);
+    A = alloc_array(pixel_t, 4); // A is a 2x2 image
+    width_A  = 2;
+    height_A = 2;
+    A[0] = make_pixel(255, 255, 0, 0);     // A[0] is a red pixel
+    A[1] = make_pixel(255, 0, 255, 0);     // A[1] is a green pixel
+    A[2] = make_pixel(255, 0, 0, 255);     // A[2] is a blue pixel
+    A[3] = make_pixel(255, 255, 255, 0);
+    mask1[8] = -1;
+    image_print(blur(A, width_A, height_A, mask1, 3), width_A, height_A);
+
+
+    printf("All tests passed!\n");
+    return 0;
+}

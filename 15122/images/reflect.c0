@@ -1,0 +1,51 @@
+#use <conio>
+
+pixel_t[] reflect(pixel_t[] pixels, int width, int height) 
+//@requires is_valid_imagesize(width, height);
+//@requires is_valid_imagesize(2 * width, 2 * height);
+//@requires \length(pixels) == width * height;
+//@ensures \result != pixels;
+//@ensures \length(\result) == 4 * \length(pixels);
+{
+  pixel_t[] output = alloc_array(pixel_t, 4 * width * height);
+  int newWidth = 2 * width;
+  int newHeight = 2 * height;
+
+  // variable j refers to row number
+  for (int j = 0; j < height; j++)
+  //@loop_invariant 0 <= j;
+  {
+    // variable i refers to column number
+    for (int i = 0; i < width; i++)
+    //@loop_invariant 0 <= i;
+    {
+      //@assert 0 <= j && j < height && 0 <= i && i < width;
+      // reflect 2d index across axis
+      int jFlip = newHeight - 1 - j;
+      int iFlip = (newWidth / 2) - 1 - i;
+      //@assert height <= jFlip && jFlip < newHeight;
+      //@assert 0 <= iFlip && iFlip < width;
+      
+      int index = get_index(j, i, width, height);
+      // these refer to indicied in quadrants of the output image
+      int q1 = get_index(j, iFlip, newWidth, newHeight);
+      int q2 = get_index(j, i + newWidth / 2, newWidth, newHeight);
+      int q3 = get_index(jFlip, iFlip, newWidth, newHeight);
+      int q4 = get_index(jFlip, i + newWidth / 2, newWidth, newHeight);
+      //@assert 0 <= index && index < \length(output);
+      //@assert 0 <= q1 && q1 < \length(output);
+      //@assert 0 <= q2 && q2 < \length(output);
+      //@assert 0 <= q3 && q3 < \length(output);
+      //@assert 0 <= q4 && q4 < \length(output);
+      //@assert \length(pixels) * 4 == \length(output);
+
+      // Setting the image pixels in each quadrant
+      output[q1] = pixels[index];
+      output[q2] = pixels[index];
+      output[q3] = pixels[index];
+      output[q4] = pixels[index];
+    }
+  }
+
+  return output;
+}

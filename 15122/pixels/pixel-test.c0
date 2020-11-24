@@ -1,0 +1,36 @@
+/**************************************************************************/
+/*              COPYRIGHT Carnegie Mellon University 2020                 */
+/* Do not post this file or any derivative on a public site or repository */
+/**************************************************************************/
+
+
+#use <util>
+#use <conio>
+#use <rand>
+
+// You are welcome to define helper functions for your tests
+void testPixel(int a, int r, int g, int b) {
+  pixel p = make_pixel(a, r, g, b);
+  assert(get_alpha(p) == a);
+  assert(get_red(p) == r);
+  assert(get_green(p) == g);
+  assert(get_blue(p) == b);
+}
+
+int main() {
+  // Run some edge cases (check for contract errors only)
+  testPixel(255, 255, 255, 255);
+  testPixel(0, 0, 0, 0);
+  
+  // Test some regular cases (check for contract errors & exploits)
+  for (int i = 0; i < 256; i ++) {
+    for (int j = 255; j >= 0; j --) {
+      testPixel(i, i, i, i);
+      testPixel(i, j, i, j);
+      testPixel(j, i, j, i);
+    }
+  }
+
+  println("All tests passed!");
+  return 0;
+}

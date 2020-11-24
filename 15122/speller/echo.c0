@@ -1,0 +1,26 @@
+/**************************************************************************/
+/*              COPYRIGHT Carnegie Mellon University 2020                 */
+/* Do not post this file or any derivative on a public site or repository */
+/**************************************************************************/
+
+
+#use <args>
+#use <conio>
+
+int main() {
+  args_t args = args_parse();
+  int argc = args->argc;
+  string[] argv = args->argv;
+  
+  for (int i = 0; i < argc; i++) 
+  //@loop_invariant 0 <= i;
+  {
+    print("Arg #"); 
+    printint(i);
+    print(": ");
+    println(argv[i]);
+  }
+
+  print("Number of arguments printed: ");
+  return argc;
+}

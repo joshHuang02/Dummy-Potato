@@ -1,0 +1,10 @@
+/**
+ * Returns whether this student failed any tests
+ */
+#use <conio>
+
+int main() {
+    run_tests();
+    println("");
+    return 0;
+}

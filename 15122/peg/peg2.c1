@@ -1,0 +1,153 @@
+/**************************************************************************/
+/*              COPYRIGHT Carnegie Mellon University 2020                 */
+/* Do not post this file or any derivative on a public site or repository */
+/**************************************************************************/
+
+
+/*
+ * Peg solitaire solver
+ *
+ * 15-122 Principles of Imperative Computation */
+
+#use <conio>
+#use <util>
+
+
+struct compact_board {
+  int i1;         // First  half of a compacted board
+  int i2;         // second half of a compacted board
+  // Add any field you deem useful
+};
+typedef struct compact_board cboard;
+
+struct entry_data {
+  cboard* key; // cb is also the key
+  int minPegs; // minimum num of pegs left is the data
+};
+typedef struct entry_data data;
+
+data* new_entry(cboard* cb, int minPegs) {
+  data* D = alloc(data);
+  D->key = cb;
+  D->minPegs = minPegs;
+  return D;
+}
+
+cboard* compress(board B)
+//@requires is_board(B);
+//@ensures \result != NULL;
+{
+  cboard* cb = alloc(cboard);
+  for (int i = 0; i < 64; i ++) {
+    if (i < 32) {
+      if (B[i] == 1) {
+        cb->i1 += 1;
+      }
+      cb->i1 = cb->i1 << 1;
+    } else {
+      if (B[i] == 1) {
+        cb->i2 += 1;
+      }
+      cb->i2 = cb->i2 << 1;
+    }
+  }
+  return cb;
+}
+
+/* Client side implementation for hashtables.  See lib/hdict.c1 */
+
+int cboard_hash(key k)
+//@requires k != NULL;
+{
+  cboard* cb = (cboard*)k;
+  int x = cb->i1;
+  int y = cb->i2;
+  int hash = 1664525 * x + 1013904223 + y;
+  return hash;
+}
+
+bool cboard_eq(key k1, key k2)
+//@requires k1 != NULL && k2 != NULL;
+{
+  cboard* cb1 = (cboard*)k1;
+  cboard* cb2 = (cboard*)k2;
+  return cb1->i1 == cb2->i1 && cb1->i2 == cb2->i2;
+}
+
+key cboard_key(entry e)
+//@requires e != NULL;
+//@ensures \result != NULL;
+{
+  data* D = (data*)e;
+  key k = (void*)D->key;
+  return k;
+}
+
+
+/*
+ * Copy here your code from peg1.c1 to continue
+ */
+
+void printS(stack_t S) 
+//@requires is_stack(S);
+{
+  print("TOP: ");
+  for (slist* l = S->top; l != S->floor; l = l->next) {
+    move m = (move)l->data;
+    printf("%d : %d -> %d : %d", row_start(m), col_start(m), 
+           row_end(m), col_end(m));
+    if (l->next != S->floor) print("\n");
+  }
+  println("");
+}
+
+int solve_peg(board B, stack_t Sol, int* minPegs, hdict_t memo) 
+//@requires is_board(B);
+{
+  //case game won
+  *minPegs = min(*minPegs, num_pegs(B));
+  if (*minPegs == 1) return 1;
+  //check the hash table
+  key preMove = (void*)compress(B);
+  if (hdict_lookup(memo, preMove) != NULL) {
+    return 0;
+  }
+  // run through all moves on this board
+  stack_t moves = all_moves(B);
+  while (!stack_empty(moves)) {
+    move m = (move)pop(moves);
+    push(Sol, (void*)m); //add move to Sol
+    make_move(B, m);
+    // case game won
+    if (solve_peg(B, Sol, minPegs, memo) == 1) return 1;
+    // case can't finish from that move
+    entry e = (void*) new_entry(compress(B), num_pegs(B));
+    hdict_insert(memo, e);
+    pop(Sol); // remove no solution move
+    undo_move(B, m); // undo that move
+    // move on to next move
+  }
+  
+  return 0;
+}
+
+int solve(board B, stack_t Sol)
+//@requires is_board(B);
+{
+  int* minPegs = alloc(int);
+  *minPegs = num_pegs(B);
+  while (!stack_empty(Sol)) pop(Sol);
+  hdict_t memo = hdict_new(8000000, &cboard_key, &cboard_hash, &cboard_eq);
+  // my implementation flipped the Sol so I need this to flip is back
+  stack_t solved = stack_new();
+
+  if (solve_peg(B, solved, minPegs, memo) == 1)  {
+    while (!stack_empty(solved)) 
+      push(Sol, pop(solved));
+    // printS(Sol);
+    return 1;
+  }
+  //@assert *minPegs > 1;
+
+  return *minPegs;
+}

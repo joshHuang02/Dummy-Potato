@@ -1,0 +1,120 @@
+/**************************************************************************/
+/*              COPYRIGHT Carnegie Mellon University 2020                 */
+/* Do not post this file or any derivative on a public site or repository */
+/**************************************************************************/
+
+
+#use <img>
+#use <parse>
+#use <args>
+#use <conio>
+#use <file>
+#use <string>
+#use <util>
+
+void blur_main(string input, string output, string mask)
+{
+  printf("Input image file:  %s\n",   input);
+  printf("Output image file: %s\n",   output);
+  printf("Blur mask file:    %s\n\n", mask);
+
+  /* Load source image */
+  image_t source = image_load(input);
+  if (source == NULL) error("Could not load source image");
+  int width = image_width(source);
+  int height = image_height(source);
+  pixel_t[] inpixels = image_data(source);
+
+  printf("Loaded image.  Dimensions are %d by %d.\n", width, height);
+
+  /* Load mask */
+  file_t file = file_read(mask);
+
+  int* size_ptr = parse_int(file_readline(file), 10);
+  if (size_ptr == NULL)
+    error("Invalid blur mask size");
+  int size = *size_ptr;
+  if ( size < 0 || size % 2 != 1 || size > size * size) {
+    error("Invalid blur mask size");
+  }
+  printf("%d\n", size);
+  int[] blurmask = alloc_array(int, size * size);
+  int i = 0;
+  int limit = size*size;
+  while (!file_eof(file) && i < limit)
+    //@loop_invariant 0 <= i && i <= limit;
+    {
+      int* value = parse_int(file_readline(file),10);
+      if (value == NULL || *value < 0) {
+        printf("Line %d", i+2); flush();
+        error(" has invalid weight");
+      }
+      blurmask[i] = *value;
+      i++;
+    }
+  if (i != limit) {
+    error("Not enough weights in mask file");
+  }
+  if (!file_eof(file)) {
+    printf("Warning: ignoring extra values in mask file!\n");
+  }
+  if (blurmask[(size / 2) * size + (size / 2)] == 0) {
+    error("Origin of mask has value 0");
+  }
+
+  /* Run blur transformation */
+  print("Running blur..."); flush();
+  pixel_t[] resultpixels = blur(inpixels, width, height, blurmask, size);
+  println("done.");
+
+  /* Create destination image */
+  image_t dest = image_create(width, height);
+  pixel_t[] outpixels = image_data(dest);
+  for (i = 0; i < width*height; i++)
+    //@loop_invariant 0 <= i;
+    {
+      outpixels[i] = resultpixels[i];
+    }
+
+  /* Save result */
+  print("Saving output..."); flush();
+  image_save(dest, output);
+  println("done.");
+}
+
+string default_output(string input, string name) {
+  int len = string_length(input);
+  if (!(len > 4 && string_equal(".png", string_sub(input, len-4, len)))) {
+    error("Input file does not end with .png");
+  }
+
+  string res = string_sub(input, 0, len-4);
+  res = string_join(res, "_");
+  res = string_join(res, name);
+  res = string_join(res, ".png");
+
+  return res;
+}
+
+int main() {
+  string *output = alloc(string);
+  string *input = alloc(string);
+  string *mask = alloc(string);
+
+  args_string("-o", output);
+  args_string("-i", input);
+  args_string("-m", mask);
+  args_parse();
+
+  if (string_equal("", *input) || string_equal("", *mask)) {
+    error("Usage: blur -i <input image> -m <blur mask> [-o <output image>]");
+  }
+
+  if (string_equal("", *output)) {
+    *output = default_output(*input, "blur");
+  }
+
+  blur_main(*input, *output, *mask);
+
+  return 0;
+}

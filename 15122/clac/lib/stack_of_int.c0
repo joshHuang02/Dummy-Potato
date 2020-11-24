@@ -1,0 +1,117 @@
+/**************************************************************************/
+/*              COPYRIGHT Carnegie Mellon University 2020                 */
+/* Do not post this file or any derivative on a public site or repository */
+/**************************************************************************/
+
+
+/*
+ * Stacks of int
+ *
+ * 15-122 Principles of Imperative Computation */
+
+
+#use <conio>
+
+/****************** Implementation of stacks of ints ******************/
+
+/* Aux structure of linked lists of ints */
+typedef struct intlist_node intlist;
+struct intlist_node {
+  int data;
+  intlist* next;
+};
+
+/* is_segment_intlist(start, end) will diverge if list is circular! */
+bool is_segment_intlist(intlist* start, intlist* end) {
+  if (start == NULL) return false;
+  if (start == end) return true;
+  return is_segment_intlist(start->next, end);
+}
+
+/* Stacks of ints */
+
+typedef struct stack_header stack;
+struct stack_header {
+  intlist* top;
+  intlist* floor;
+};
+
+bool is_stack(stack* S) {
+  return S != NULL
+    && is_segment_intlist(S->top, S->floor);
+}
+
+bool stack_empty(stack* S)
+//@requires is_stack(S);
+{
+  return S->top == S->floor;
+}
+
+stack* stack_new()
+//@ensures is_stack(\result);
+//@ensures stack_empty(\result);
+{
+  stack* S = alloc(stack);
+  intlist* l = alloc(intlist); /* does not need to be initialized! */
+  S->top = l;
+  S->floor = l;
+  return S;
+}
+
+void push(stack* S, int x)
+//@requires is_stack(S);
+//@ensures is_stack(S);
+{
+  intlist* l = alloc(intlist);
+  l->data = x;
+  l->next = S->top;
+  S->top = l;
+}
+
+int pop(stack* S)
+//@requires is_stack(S);
+//@requires !stack_empty(S);
+//@ensures is_stack(S);
+{
+  int x = S->top->data;
+  S->top = S->top->next;
+  return x;
+}
+
+void stack_print(stack* S)
+//@requires is_stack(S);
+{
+  print("TOP: ");
+  for (intlist* l = S->top; l != S->floor; l = l->next) {
+    printint(l->data);
+    if (l->next != S->floor) print(" | ");
+  }
+}
+
+
+// Client type
+typedef stack* stack_t;
+
+
+
+/****************** Interface to stacks of ints ******************/
+
+// typedef ______* stack_t;
+
+bool stack_empty(stack_t S)              /* O(1) */
+/*@requires S != NULL;            @*/ ;
+
+stack_t stack_new()                      /* O(1) */
+/*@ensures \result != NULL;       @*/
+/*@ensures stack_empty(\result);  @*/ ;
+
+void push(stack_t S, int x)              /* O(1) */
+/*@requires S != NULL;            @*/
+/*@ensures !stack_empty(S);      @*/ ;
+
+int pop(stack_t S)                       /* O(1) */
+/*@requires S != NULL;            @*/
+/*@requires !stack_empty(S);      @*/ ;
+
+void stack_print(stack_t S)              /* O(n) */
+/*@requires S != NULL;            @*/ ;

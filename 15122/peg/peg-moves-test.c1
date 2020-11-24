@@ -1,0 +1,70 @@
+/**************************************************************************/
+/*              COPYRIGHT Carnegie Mellon University 2020                 */
+/* Do not post this file or any derivative on a public site or repository */
+/**************************************************************************/
+
+
+/*
+ * Peg solitaire test file for peg-moves.c1
+ *
+ * 15-122 Principles of Imperative Computation
+ */
+
+#use <args>
+#use <conio>
+#use <util>
+
+
+
+// You are welcome to define additional helper functions for your tests
+void print_all_moves(board B){
+  stack_t S = all_moves(B);
+  println("Valid Moves");
+  while (!stack_empty(S)) {
+    move m = (move)pop(S);
+    printf("%d , %d , %d , %d \n", row_start(m), 
+           col_start(m), row_end(m), col_end(m));
+  }
+}
+
+void moveP(board B, int from_row, int from_col, int to_row, int to_col) {
+  printf("Move: %d , %d -> %d , %d \n", from_row, from_col, to_row, to_col);
+  move m = new_move(from_row, from_col, to_row, to_col);
+  make_move(B, m);
+  print_board(B);
+}
+
+void unmoveP(board B, int from_row, int from_col, int to_row, int to_col) {
+  printf("Move: %d , %d <-  %d , %d \n", from_row, from_col, to_row, to_col);
+  move m = new_move(from_row, from_col, to_row, to_col);
+  undo_move(B, m);
+  print_board(B);
+}
+
+
+int main() {
+  // Creating a board from file
+
+  int[] B_init = alloc_array(int, 8*8);
+
+  args_t args = args_parse();
+  int argc = args->argc;
+  if (argc == 0) {
+    print("Using English board as default\n");
+    english_board(B_init);
+  } else if (argc == 1) {
+    read_board(args->argv[0], B_init, 8*8);
+  }
+
+  // Using B_init, test the functions you wrote in file peg-moves.c1
+  print_board(B_init);
+
+  moveP(B_init, 1,3,3,3);
+  // print_all_moves(B_init);
+  unmoveP(B_init, 1,3,3,3);
+  // moveP(B_init, 2,0,2,2);
+
+
+  println("All tests passed!");
+  return 0;
+}

@@ -1,0 +1,150 @@
+/**************************************************************************/
+/*              COPYRIGHT Carnegie Mellon University 2020                 */
+/* Do not post this file or any derivative on a public site or repository */
+/**************************************************************************/
+
+
+/* Generic Stacks
+ * 15-122 Principles of Imperative Computation
+ */
+
+#use <conio>
+
+/*************************** Implementation ****************************/
+// Element type
+typedef void* stackelem;
+typedef void stackelem_print_fn(stackelem x);
+
+/* Aux structure of linked lists */
+typedef struct slist_node slist;
+struct slist_node {
+  stackelem data;
+  slist* next;
+};
+
+/* is_ssegment(start, end) will diverge if list is circular! */
+bool is_ssegment(slist* start, slist* end) {
+  slist* p = start;
+  while (p != end) {
+    if (p == NULL) return false;
+    p = p->next;
+  }
+  return true;
+}
+
+int slist_size(slist* start, slist* end)
+//@requires is_ssegment(start, end);
+{
+  slist* p = start;
+  int n = 0;
+  while (p != end)
+    //@loop_invariant is_ssegment(p, end);
+    {
+      //@assert p != NULL;
+      n = n+1;
+      p = p->next;
+    }
+  return n;
+}
+
+/* Stacks */
+
+typedef struct stack_header stack;
+struct stack_header {
+  slist* top;
+  slist* floor;
+  int size;
+};
+
+bool is_stack(stack* S) {
+  if (S == NULL) return false;
+  if (S->top == NULL || S->floor == NULL) return false;
+  if (!is_ssegment(S->top, S->floor)) return false;
+  if (S->size != slist_size(S->top, S->floor)) return false;
+  return true;
+}
+
+int stack_size(stack* S)
+//@requires is_stack(S);
+{
+  return S->size;
+}
+
+bool stack_empty(stack* S)
+//@requires is_stack(S);
+{
+  return S->top == S->floor;
+}
+
+stack* stack_new()
+//@ensures is_stack(\result);
+//@ensures stack_empty(\result);
+{
+  stack* S = alloc(stack);
+  slist* p = alloc(slist); /* does not need to be initialized! */
+  S->top = p;
+  S->floor = p;
+  S->size = 0;
+  return S;
+}
+
+void push(stack* S, stackelem e)
+//@requires is_stack(S);
+//@ensures is_stack(S);
+{
+  slist* p = alloc(slist);
+  p->data = e;
+  p->next = S->top;
+  S->top = p;
+  (S->size)++;
+}
+
+stackelem pop(stack* S)
+//@requires is_stack(S);
+//@requires !stack_empty(S);
+//@ensures is_stack(S);
+{
+  stackelem e = S->top->data;
+  S->top = S->top->next;
+  (S->size)--;
+  return e;
+}
+
+void stack_print(stack* S, stackelem_print_fn* elem_print)
+//@requires is_stack(S) && elem_print != NULL;
+  {
+  print("TOP: ");
+  for (slist* l = S->top; l != S->floor; l = l->next) {
+    (*elem_print)(l->data);
+    if (l->next != S->floor) print(" | ");
+  }
+}
+
+
+typedef stack* stack_t;
+
+
+/************************ Interface ****************************/
+
+// typedef ______* stack_t;
+
+bool stack_empty(stack_t S)        /* O(1) */
+/*@requires S != NULL; @*/;
+
+stack_t stack_new()                /* O(1) */
+/*@ensures \result != NULL; @*/
+/*@ensures stack_empty(\result); @*/;
+
+void push(stack_t S, stackelem e)  /* O(1) */
+/*@requires S != NULL; @*/;
+
+stackelem pop(stack_t S)           /* O(1) */
+/*@requires S != NULL; @*/
+/*@requires !stack_empty(S); @*/ ;
+
+int stack_size(stack_t S)          /* O(1) */
+/*@requires S != NULL; @*/
+/*@ensures \result >= 0; @*/;
+
+void stack_print(stack_t S, stackelem_print_fn* elem_print)
+/*@requires S != NULL && elem_print != NULL; @*/ ;

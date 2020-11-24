@@ -1,0 +1,7 @@
+: muda ;
+: dup 1 pick ;
+: log dup 1 < if muda muda muda check1 ;
+: log1 2 / dup 2 < if -1 end skip track ;
+: track swap 1 + swap log1 ;
+: end < + 1 ;
+: check1 dup 2 < if 0 3 skip 1 swap log1 ;

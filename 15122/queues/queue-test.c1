@@ -1,0 +1,84 @@
+/**************************************************************************/
+/*              COPYRIGHT Carnegie Mellon University 2020                 */
+/* Do not post this file or any derivative on a public site or repository */
+/**************************************************************************/
+
+
+#use <conio>
+
+// You are welcome to define helper functions for your tests
+void print_data(void* x) {
+  int* s = alloc(int);
+  s = (int*)x;
+  printf("%d | ", *s);
+  if (x == NULL) print("N | ");
+}
+
+int main() {
+  int *a = alloc(int);
+  // int *b = alloc(int);
+  // int *c = alloc(int);
+  // int *d = alloc(int);
+  // int *e = alloc(int);
+  // int *f = alloc(int);
+  // int *g = alloc(int);
+  // int *h = alloc(int);
+  // int *i = alloc(int);
+  // int *j = alloc(int);
+  // int *k = alloc(int);
+  // int *l = alloc(int);
+  // int *m = alloc(int);
+  *a = 1;
+  // *b = -1;
+  // *c = -1;
+  // *d = -1;
+  // *e = -1;
+  // *f = -1;
+  // *g = -1;
+  // *h = -1;
+  // *i = -1;
+  // *j = -100;
+  // *k = -0;
+  // *l = -55;
+  // *m = -26;
+
+  queue_t Q = queue_new();
+  
+  // Using them, test the functions you wrote in file queue.c1
+  // enq(Q, (void*)a);
+  // enq(Q, (void*)b);
+  // enq(Q, (void*)c);
+  // enq(Q, (void*)d);
+  // enq(Q, (void*)e);
+  // enq(Q, (void*)f);
+  // enq(Q, (void*)g);
+  // enq(Q, (void*)h);
+  // enq(Q, (void*)i);
+  // enq(Q, (void*)j);
+  // enq(Q, (void*)k);
+  // enq(Q, (void*)l);
+  // enq(Q, (void*)m);
+  // print_queue(Q, &print_data);
+
+  // queue_reverse(Q);
+  // print_queue(Q, &print_data);
+
+  // print_queue(insertion_sort(Q), &print_data);
+
+  // enq(Q, NULL);
+  void* negative = queue_iterate(Q, NULL, &find_negative);
+  if (negative == NULL) {
+    printf("no negative numbers (NULL)\n");
+  } else {
+    printf("%d \n", *(int*)negative);
+  }
+  
+  // for (int num = 0; num < 13; num++) {
+  //   deq(Q);
+  //   print_queue(Q, &print_data);
+  // }
+
+  println("All tests passed!");
+
+  return 0;
+}

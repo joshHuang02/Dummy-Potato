@@ -1,0 +1,75 @@
+
+
+pixel_t[] blur(pixel_t[] pixels,int width,int height,int[] mask,int maskwidth)
+//@requires is_valid_imagesize(width, height);
+//@requires \length(pixels) == width*height;
+//@requires maskwidth % 2 == 1 && is_valid_imagesize(maskwidth, maskwidth);
+//@requires mask[(maskwidth * maskwidth / 2)] != 0;
+//@requires \length(mask) == maskwidth * maskwidth;
+//@ensures \result != pixels;
+//@ensures \length(\result) == \length(pixels);
+{
+  // check for negatives in mask
+  for (int a = 0; a < maskwidth * maskwidth; a ++) {
+    assert(0 <= mask[a]);
+  }
+  pixel_t[] output = alloc_array(pixel_t, width * height);
+
+  // Note: no is_valid_pixel loop invariant is used because 
+  // all row and column reference are used in the safe get_index function.
+  // j refers to row number
+  for (int j = 0; j < height; j++)
+  //@loop_invariant 0 <= j;
+  {
+    // i refers to column number
+    for (int i = 0; i < width; i++)
+    //@loop_invariant 0 <= i;
+    {
+      // below code is per pixel, running mask length times
+      int totalWeight = 0;
+      int[] rgb = alloc_array(int, 3);
+
+      // these refer to the pixel under index 1 of mask,
+      // does not have to be in range
+      int rowPixelStart = j - (maskwidth / 2);
+      int colPixelStart = i - (maskwidth / 2);
+
+      // rowMask refers to the row in 2d mask array
+      for (int rowMask = 0; rowMask < maskwidth; rowMask ++)
+      //@loop_invariant 0 <= rowMask;
+      {
+        // colMask refers to the column in 2d mask array
+        for (int colMask = 0; colMask < maskwidth; colMask ++)
+        //@loop_invariant 0 <= colMask;
+        {
+          int rowPixel = rowPixelStart + rowMask;
+          int colPixel = colPixelStart + colMask;
+          if (is_valid_pixel(rowPixel, colPixel, width, height)) {
+            int maskIndex = get_index(rowMask, colMask, maskwidth, maskwidth);
+            int weight = mask[maskIndex];
+            totalWeight += weight;
+
+            int pixelIndex = get_index(rowPixel, colPixel, width, height);
+            pixel p = pixels[pixelIndex];
+            rgb[0] += weight * get_red(p);
+            rgb[1] += weight * get_green(p);
+            rgb[2] += weight * get_blue(p);
+          }
+        } // end loop colMask
+      } // end loop rowMask
+
+      int pixelIndex = get_index(j, i, width, height);
+      int alpha = get_alpha(pixels[pixelIndex]);
+      // divide rgb values by total weight
+      for (int k = 0; k < 3; k ++) rgb[k] = rgb[k] / totalWeight;
+      //@assert 0 <= rgb[0] && rgb[0] <= 255;
+      //@assert 0 <= rgb[1] && rgb[1] <= 255;
+      //@assert 0 <= rgb[2] && rgb[2] <= 255;
+      //@assert 0 <= alpha && alpha <= 255;
+      output[pixelIndex] = make_pixel(alpha, rgb[0], rgb[1], rgb[2]);
+
+    } // end loop i
+  } // end loop j
+
+  return output;
+}

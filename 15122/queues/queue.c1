@@ -1,0 +1,251 @@
+/**************************************************************************/
+/*              COPYRIGHT Carnegie Mellon University 2020                 */
+/* Do not post this file or any derivative on a public site or repository */
+/**************************************************************************/
+#use <conio>
+
+/*
+ * Extended interface of queues
+ *
+ * 15-122 Principles of Imperative Computation
+ */
+
+
+/************************/
+/*** Client interface ***/
+/************************/
+
+typedef void print_data_fn(void* x);            // may be useful for debugging
+typedef bool check_property_fn(void* x);
+typedef void* iterate_fn(void* accum, void* x);
+
+
+/**********************/
+/*** Implementation ***/
+/**********************/
+
+typedef struct list_node list;
+struct list_node {
+  void* data;
+  list* next;
+};
+
+typedef struct queue_header queue;
+struct queue_header {
+  list* front;
+  list* back;
+  int size;
+};
+
+bool is_inclusive_segment(list* start, list* end, int i) {
+  if (i == 1 && start == end && end->next == NULL) {
+    return true;
+  }
+    
+  if (i < 1 || start->next == NULL) {
+    return false;
+  }
+
+  return is_inclusive_segment(start->next, end, i - 1);
+}
+
+bool is_queue(queue* Q) {
+  if (Q == NULL || Q->size < 0) return false;
+  
+  // case 0 element
+  if (Q->front == NULL && Q->size == 0) {
+    return true;
+  // case 1 element
+  } else if (Q->front == Q->back && Q->size == 1) {
+    if (Q->back != NULL && Q->back->next == NULL)
+      return true;
+    return false;
+  // case multiple element
+  } else {
+    //length and NULL check
+    list* node = Q->front;
+    for (int i = 0; i < Q->size; i++) {
+      if (node == NULL || (i == Q->size - 1 && node != Q->back)) 
+        return false;
+      node = node->next;
+    }
+
+    return is_inclusive_segment(Q->front, Q->back, Q->size);
+  }
+}
+
+void print_queue(queue* Q, print_data_fn* print_data) 
+//@requires is_queue(Q);
+{
+  if (Q == NULL) {
+    printf("NULL Queue");
+    return;
+  }
+  list* node = Q->front;
+  for (int i = 0; i < Q->size; i ++) {
+    if (node->data == NULL) {
+      printf("null |");
+    } else {
+      (*print_data)(node->data);
+    }
+    node = node->next;
+  }
+  if (Q->back->next == NULL) {
+    printf("null ending\n");
+  }
+  printf("\n");
+  return;
+}
+
+/* Other functions go there */
+// typedef ______* queue_t;  
+  
+queue* queue_new() /* O(1) */  
+//@ensures \result != NULL;
+//@ensures is_queue(\result);
+{
+  queue* Q = alloc(queue);
+  //@assert Q != NULL;
+  Q->front = NULL;
+  Q->back = NULL;
+  Q->size = 0;
+  return Q;
+}
+  
+int queue_size(queue* Q) /* O(1) */  
+//@requires Q != NULL;
+//@requires is_queue(Q);
+//@ensures \result >= 0;
+{
+  return Q->size;
+}
+  
+/* adds an item to the back of the queue */  
+void enq(queue* Q, void* x) /* O(1) */  
+//@requires Q != NULL;
+//@requires is_queue(Q);
+//@ensures is_queue(Q);
+{
+  list* L = alloc(list);
+  L->data = x;
+  L->next = NULL;
+  if (queue_size(Q) == 0) {
+    Q->front = L;
+    Q->back = L;
+    Q->front->next = NULL;
+  } else {
+    //@assert Q != NULL && Q->back != NULL && L != NULL;
+    Q->back->next = L;
+    Q->back = Q->back->next;
+    Q->back->next = NULL;
+  }
+  // Q->back->next == NULL;
+  Q->size += 1;
+}
+  
+/* removes an item from the front of the queue */  
+void* deq(queue* Q) /* O(1) */  
+//@requires Q != NULL && queue_size(Q) > 0;
+//@requires is_queue(Q);
+//@ensures is_queue(Q);
+//@ensures Q->size >= 0;
+{
+  //@assert Q->front != NULL;
+  list* node = Q->front;
+  Q->front = Q->front->next;
+  Q->size -= 1;
+  //@assert node != NULL;
+  return node->data;
+}
+
+/* doesn't remove the item from the queue */  
+void* queue_peek(queue* Q, int i) /* O(i) */  
+//@requires Q != NULL;
+//@requires 0 <= i;
+//@requires i < queue_size(Q);
+//@requires is_queue(Q);
+//@ensures is_queue(Q);
+{
+  //@assert Q->front != NULL; // because cannot access empty Q by lines 145,146
+  list* node = Q->front;
+  for (int j = 0; j <= i; j ++) {
+    //@assert node != NULL;
+    if (j == i) return node->data;
+    node = node->next;
+  }
+  //should never get here!
+  //@assert false;
+  return NULL;
+}
+  
+void queue_reverse(queue* Q) /* O(n) */  
+//@requires Q != NULL;
+//@requires is_queue(Q);
+//@ensures is_queue(Q);
+{
+  if (queue_size(Q) <= 1) {
+    return;
+  }
+
+  //@assert Q->front != NULL; // b/c size 1 and 0 dont do anything
+  list* prev = NULL;
+  list* current = Q->front;
+  for (int i = 0; i < Q->size; i ++) {
+    list* tempNext = current->next;
+    current->next = prev;
+    prev = current;
+    current = tempNext;
+  }
+  Q->front = prev;
+  //@assert Q->front != NULL;
+  //setting the back node again
+  list* node = Q->front;
+  for (int j = 0; j < Q->size; j ++) 
+  //@loop_invariant Q->back != NULL;
+  {
+    Q->back = node;
+    node = node->next;
+  }
+  //@assert Q->back->next == NULL;
+}
+
+/* O(n) worst case, assuming P is O(1) */  
+bool queue_all(queue* Q, check_property_fn* P)  
+//@requires Q != NULL && P != NULL;
+//@requires is_queue(Q);
+{
+  if (queue_size(Q) == 0) return true;
+
+  //@assert Q->front != NULL; // because queue size is not 0
+  list* node = Q->front;
+  while (node != NULL) {
+    if ( !(*P)(node->data)) 
+      return false;
+    node = node->next;
+  }
+  return true;
+}
+
+void* iterater(void* base, list* node, iterate_fn* F) 
+//@requires F != NULL;
+{
+  // case for reaching end of queue
+  if (node == NULL) return base;
+
+  base = (*F)(base, node->data);
+  return iterater(base, node->next, F);
+}
+
+/* O(n) worst case, assuming F is O(1) */  
+void* queue_iterate(queue* Q, void* base, iterate_fn* F)  
+//@requires Q != NULL && F != NULL;
+//@requires is_queue(Q);
+{
+  if (queue_size(Q) == 0) return base;
+  //@assert Q->front != NULL; //because size is not 0
+  return iterater(base, Q->front, F);
+}
+
+// Client type
+typedef queue* queue_t;
+

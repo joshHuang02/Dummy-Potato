@@ -1,0 +1,69 @@
+/**************************************************************************/
+/*              COPYRIGHT Carnegie Mellon University 2020                 */
+/* Do not post this file or any derivative on a public site or repository */
+/**************************************************************************/
+
+
+/*
+ * Peg solitaire solver
+ *
+ * 15-122 Principles of Imperative Computation */
+
+#use <conio>
+#use <util>
+
+void printS(stack_t S) 
+//@requires is_stack(S);
+{
+  print("TOP: ");
+  for (slist* l = S->top; l != S->floor; l = l->next) {
+    move m = (move)l->data;
+    printf("%d : %d -> %d : %d", row_start(m), col_start(m), 
+           row_end(m), col_end(m));
+    if (l->next != S->floor) print("\n");
+  }
+  println("");
+}
+
+int solve_peg(board B, stack_t Sol, int* minPegs) 
+//@requires is_board(B);
+{
+  //case game won
+  *minPegs = min(*minPegs, num_pegs(B));
+  if (*minPegs == 1) return 1;
+  // run through all moves on this board
+  stack_t moves = all_moves(B);
+  while (!stack_empty(moves)) {
+    move m = (move)pop(moves);
+    push(Sol, (void*)m); //add move to Sol
+    make_move(B, m);
+    // case game won
+    if (solve_peg(B, Sol, minPegs) == 1) return 1;
+    // case can't finish from that move
+    pop(Sol); // remove no solution move
+    undo_move(B, m); // undo that move
+    // move on to next move
+  }
+  
+  return 0;
+}
+
+int solve(board B, stack_t Sol)
+//@requires is_board(B);
+{
+  int* minPegs = alloc(int);
+  *minPegs = num_pegs(B);
+  while (!stack_empty(Sol)) pop(Sol);
+  // my implementation flipped the Sol so I need this to flip is back
+  stack_t solved = stack_new();
+
+  if (solve_peg(B, solved, minPegs) == 1)  {
+    while (!stack_empty(solved)) 
+      push(Sol, pop(solved));
+    // printS(Sol);
+    return 1;
+  }
+  //@assert *minPegs > 1;
+
+  return *minPegs;
+}
