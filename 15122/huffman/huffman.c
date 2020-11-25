@@ -181,8 +181,8 @@ symbol_t* decode_src(htree *H, bit_t *code, size_t *src_len) {
   loopSrc(H, code, src_len, S);
 
   //test
-  printf("src_len: %zu \n", *src_len);
-  printf("Result: %s\n", S);
+  // printf("src_len: %zu \n", *src_len);
+  // printf("Result: %s\n", S);
 
   return S;
 }
@@ -191,15 +191,32 @@ symbol_t* decode_src(htree *H, bit_t *code, size_t *src_len) {
 /****************************************************/
 /* Tasks 4: Building code tables from Huffman trees */
 /****************************************************/
-void populate_table(codetable_t table, htree* traveller, bit_t *path, int i) {
+void populate_table(bitstring_t *table, htree* traveller, bit_t *path, int i) {
   if (is_htree_leaf(traveller)) {
-    table[traveller->value] = path;
-    return;
+    table[traveller->value] = xcalloc(sizeof(bit_t), NUM_SYMBOLS);
+    ASSERT(is_bitstring(path));
+    strcpy(table[traveller->value], path);
+
+    //test
+    // printf("Traveller is at %c: %s \n",traveller->value , table[traveller->value]);
+    // if (table['e'] != NULL) printf("e: %s\n", table['e']);
+    // if (table['f'] != NULL) printf("f: %s\n", table['f']);
+    // if (table['r'] != NULL) printf("r: %s\n", table['r']);
+    // if (table['c'] != NULL) printf("c: %s\n", table['c']);
+    // if (table['o'] != NULL) printf("o: %s\n", table['o']);
+    // if (table[' '] != NULL) printf(" : %s\n", table[' ']);
+    // printf("\n");
   } else {
     ASSERT(is_htree_interior(traveller));
-    path[i] = 0;
+    path[i] = '1';
+    path[i + 1] = '\0';
+    populate_table(table, traveller->right, path, i + 1);    
+    path[i] = '0';
+    path[i + 1] = '\0';
     populate_table(table, traveller->left, path, i + 1);
+
   }
+  return;
 }
 
 // Returns code table for characters in H
@@ -207,13 +224,15 @@ codetable_t htree_to_codetable(htree *H) {
   REQUIRES(is_htree(H));
 
   htree* traveller = H;
-  bit_t *path[NUM_SYMBOLS];
+  bit_t path[NUM_SYMBOLS];
   int i = 0;
-  codetable_t table[NUM_SYMBOLS];
-  
+  bitstring_t *table = xcalloc(sizeof(bitstring_t), NUM_SYMBOLS);
   populate_table(table, traveller, path, i);
 
-  return *table;
+  codetable_t result = (codetable_t)table;
+
+  ENSURES(is_codetable(result));
+  return result;
 }
 
 
@@ -223,9 +242,34 @@ codetable_t htree_to_codetable(htree *H) {
 
 // Encodes source according to codetable
 bit_t* encode_src(codetable_t table, symbol_t *src, size_t src_len) {
+  REQUIRES(is_codetable(table));
+  REQUIRES(src != NULL);
+
+  size_t bitLen = 0;
+  size_t *sLens = xcalloc(sizeof(size_t), src_len + 1);  
+  for (size_t i = 0; i < src_len; i++) {
+    if (table[src[i]] == NULL) error("Symbol not in code table!");
+    size_t len = strlen(table[src[i]]);
+    bitLen += len;
+    sLens[i + 1] = bitLen;
+  }
+
+  bit_t *bits = xcalloc(sizeof(bit_t), bitLen + 1);
+  for (size_t j = 0; j < src_len; j++) {
+    if (table[src[j]] == NULL) error("Symbol not in code table!"); 
+    // test   
+    // printf("%zu, %zu | ", strlen(bits), sLens[j]);
+    // fflush(stdout);
+    // strcat(bits, table[src[j]]);
+    strcat(bits + sLens[j], table[src[j]]);
+  }
+  free(sLens);
+  
+  ASSERT(is_bitstring(bits));
+  return bits;
   // WRITE ME
-  (void)table; (void)src; (void)src_len; // bogus
-  return NULL; // bogus
+  // (void)table; (void)src; (void)src_len; // bogus
+  // return NULL; // bogus
 }
 
 
@@ -235,9 +279,24 @@ bit_t* encode_src(codetable_t table, symbol_t *src, size_t src_len) {
 
 // Build a frequency table from a source file (or STDIN)
 freqtable_t build_freqtable(char *fname) {
+  FILE *F = fopen(fname, "r");
+
+  freqtable_t table = xcalloc(sizeof(int),  NUM_SYMBOLS);
+  int i;
+  while ((i = fgetc(F)) != EOF) {
+    if (table[i] != 0) {
+      table[i] ++;
+    } else {
+      table[i] = 1;
+    }
+  }
+  fclose(F);
+
+  ENSURES(is_freqtable(table));
+  return table;
   // WRITE ME
-  (void)fname; // bogus
-  return NULL; // bogus
+  // (void)fname; // bogus
+  // return NULL; // bogus
 }
 
 
@@ -248,14 +307,60 @@ freqtable_t build_freqtable(char *fname) {
 
 // Pack a string of bits into an array of bytes; length = strlen(bits)/8
 uint8_t* pack(bit_t *bits) {
+  REQUIRES(bits != NULL);
+
+  int len = strlen(bits);
+  int packageLen = num_padded_bytes(len);
+
+  uint8_t *package = xcalloc(sizeof(uint8_t), packageLen);
+  for (int i = 0; i < packageLen; i++) {
+    for (int j = 0; j < 8; j++) {
+      if (((i * 8) + j) <= len && bits[(i * 8) + j] == '1') {
+        // printf("does this even happen");
+        uint8_t temp = 1 << (7 -j);
+        package[i] = package[i] + temp;
+      }
+      
+    }
+  }
+  //test
+  // printf("%d\n", package[0]);
+  // printf("%d\n", package[1]);
+  // printf("%d\n", package[2]);
+  // printf("%d\n", package[3]);
+
+
+  return package;
   // WRITE ME
-  (void)bits;  // bogus
-  return NULL; // bogus
+  // (void)bits;  // bogus
+  // return NULL; // bogus
 }
 
 // Unpack an array of bytes c of length len into a NUL-terminated string of ASCII bits
 bit_t* unpack(uint8_t *c, size_t len) {
+  REQUIRES(c != NULL);
+
+  bit_t *bits = xcalloc(sizeof(bit_t), len * 8);
+  for (size_t i = 0; i < len; i++) {
+    for (int j = 7; j >= 0; j--) {
+      
+      if ((c[i] & 1) == 1) {
+        bits[(i * 8) + j] = '1';
+        //test
+        // printf("1");
+      } else {
+        bits[(i * 8) + j] = '0';
+        //test
+        // printf("0");
+      }
+      c[i] >>= 1;
+    }
+    // printf(" %s\n", bits);
+  }
+  printf("\n");
+
+  return bits;
   // WRITE ME
-  (void)c; (void)len;  // bogus
-  return NULL;         // bogus
+  // (void)c; (void)len;  // bogus
+  // return NULL;         // bogus
 }

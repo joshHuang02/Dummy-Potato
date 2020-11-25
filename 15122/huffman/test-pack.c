@@ -25,7 +25,7 @@
 
 int main () {
   // Create a few NUL-terminated string of ASCII bits and corresponding arrays of bytes
-
+  char testing = {'a', 'b'};
   // Using them, test pack and unpack
 
 
