@@ -1,4 +1,4 @@
-# 鹰飞打单 - 这个程序因为eccang限制只处理FedEx单，UPS单需要手动输入
+# 鹰飞打单 - 这个程序因为eccang限制只处理FedEx单，UPS单需要手动输入, 只测试过amazon, ebay, shopify订单。其他平台需要手动输入
 # assumes original csv is sorted already, check that 2 piece sets are ordered correctly nexst to each other
 # use pyinsatller to translate python program to .exe, use command 'pyinstaller --onefile --distpath ./ --clean -y -w eagle-fly-orders.py', this will replace the old .exe
 import csv
@@ -22,33 +22,35 @@ def clean(value, separator='ext'):
 
 # processes the input csv files from eccang, selects the orders that match the 鹰飞 ordes and adds them to the 出库 data template
 def process_csv(待处理列表, 出库数据):
-    # check if list is empty, do not read if empty
-    if (待处理列表 != ""):
-        with open(待处理列表, mode='rt', encoding="utf8") as csv_file:
-            csv_reader = list(csv.DictReader(csv_file))
-            for row in csv_reader:
-                出库数据.line_count += 1
-                reference_no = clean(row["refrence_no"])[-5:]
-                # if order number matches
-                if (reference_no in order_list):
-                    output_row = ()
-                    # if order is multiple of many parts, following parts only need sku and qty
-                    if (reference_no in duplicate_orders_list):
-                        output_row = (row["pcr_product_sku"], row["qty"])
-                    else:
-                        # add the unique order to duplicate list to check for future duplicates
-                        duplicate_orders_list.append(reference_no)
-                        # sku, qty, name, , phone, street, , , city, state, zip, , country code, , , refrence no, , , , , , , , , tracking no
-                        output_row = (row["pcr_product_sku"], row["qty"], row["consignee_name"], "", row["consignee_phone"], row["consignee_street"], "", "", row["consignee_city"],
-                                      row["consignee_province"], row["consignee_zip"], "", row["consignee_country_code"], "", "", row["refrence_no"], "", "", "", "", "", "", "", "", row["tracking_number"])
+    # check if list is empty, skip if empty
+    if (待处理列表 == ""): return
+    
+    with open(待处理列表, mode='rt', encoding="utf8") as csv_file:
+        csv_reader = list(csv.DictReader(csv_file))
+        for row in csv_reader:
+            出库数据.line_count += 1
+            #last 5 characters in reference number (could be characters if shopify)
+            reference_no = clean(row["refrence_no"])[-5:]
+            # if a order number matches
+            if (reference_no in order_list):
+                output_row = ()
+                # if order is multiple of many parts, following parts only need sku and qty
+                if (reference_no in duplicate_orders_list):
+                    output_row = (row["pcr_product_sku"], row["qty"])
+                else:
+                    # add the unique order to duplicates list to check for future duplicates
+                    duplicate_orders_list.append(reference_no)
+                    # sku, qty, name, , phone, street, , , city, state, zip, , country code, , , refrence no, , , , , , , , , tracking no
+                    output_row = (row["pcr_product_sku"], row["qty"], row["consignee_name"], "", row["consignee_phone"], row["consignee_street"], "", "", row["consignee_city"],
+                                    row["consignee_province"], row["consignee_zip"], "", row["consignee_country_code"], "", "", row["refrence_no"], "", "", "", "", "", "", "", "", row["tracking_number"])
 
-                    # cleans the data for formatting, convert to list, clean since tuple is immutable
-                    output_line = list(output_row)
-                    for i in range(len(output_line)):
-                        output_line[i] = clean(output_line[i])
-                    # append the new lines of data to output xlsx file
-                    出库数据.output_xlsx.append(output_line)
-                    出库数据.label_count += int(clean(row["qty"]))
+                # cleans the data for formatting by converting to list since tuple is immutable
+                output_row = list(output_row)
+                for i in range(len(output_row)):
+                    output_row[i] = clean(output_row[i])
+                # append the new lines of data to output xlsx file and updates quantity count for number of labels found
+                出库数据.output_xlsx.append(output_row)
+                出库数据.label_count += int(clean(row["qty"]))
 
 # centuralized object for storing the output information
 class Output:
